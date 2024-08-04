@@ -41,6 +41,9 @@ public enum StatusModel {
         if (this.equals(StatusModel.INACTIVE)) {
             throw new RuntimeException("task");
         }
+        if (this.equals(StatusModel.DONE)) {
+            throw new RuntimeException("task");
+        }
         return StatusModel.INACTIVE;
     }
 
