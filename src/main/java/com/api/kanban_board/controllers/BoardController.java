@@ -36,18 +36,12 @@ public class BoardController {
         return new ResponseEntity<>(toDto(savedBoardModel), HttpStatus.CREATED);
     }
 
-    /*@GetMapping
-    public List<BoardModel> getAllBoards() {
-        List<BoardEntity> boardEntities = boardService.getAllBoards();
-        return boardEntities.stream().map(boardMapper::entityToModel).collect(Collectors.toList());
-    }*/
-
     @GetMapping("{id}")
-    public BoardModel searchBoardById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> searchBoardById(@PathVariable("id") Long id) {
         if(id == null || id == 0){
             throw new ConflictException("id is null or 0");
         }
-        BoardEntity boardEntity = getBoardByIdService.execute(id);
-        return toModel(boardEntity);
+        BoardModel boardModel = getBoardByIdService.execute(id);
+        return new ResponseEntity<>(toDto(boardModel), HttpStatus.OK);
     }
 }

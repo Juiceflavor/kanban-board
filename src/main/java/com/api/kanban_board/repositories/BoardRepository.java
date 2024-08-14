@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface BoardRepository {
     BoardModel save(BoardModel boardModel);
 
-    BoardEntity getBoardById(Long id);
+    BoardModel getBoardById(Long id);
 }

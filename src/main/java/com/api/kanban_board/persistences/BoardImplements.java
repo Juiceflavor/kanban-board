@@ -23,7 +23,7 @@ public class BoardImplements implements BoardRepository {
     }
 
     @Override
-    public BoardEntity getBoardById(Long id) {
-        return boardJpaRepositoryAdapter.findById(id).get();
+    public BoardModel getBoardById(Long id) {
+        return toModel(boardJpaRepositoryAdapter.findById(id).get());
     }
 }

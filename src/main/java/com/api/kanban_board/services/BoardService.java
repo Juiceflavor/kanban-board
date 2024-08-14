@@ -16,9 +16,5 @@ public class BoardService {
         return boardRepository.save(board);
     }
     
-    public BoardEntity getBoardById(Long id){ return boardRepository.getBoardById(id); }
-    
-    /*public List<BoardEntity> getAllBoards() {
-        return boardRepository.findAll();
-    }*/
+    public BoardModel getBoardById(Long id){ return boardRepository.getBoardById(id); }
 }
