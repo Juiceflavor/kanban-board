@@ -1,7 +1,7 @@
-package com.api.kanban_board.controllers;
+package com.api.kanban_board.controller;
 
-import com.api.kanban_board.models.Tasks;
-import com.api.kanban_board.services.TasksService;
+import com.api.kanban_board.model.Tasks;
+import com.api.kanban_board.service.TasksService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

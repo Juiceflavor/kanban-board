@@ -1,7 +1,7 @@
-package com.api.kanban_board.services;
+package com.api.kanban_board.service;
 
-import com.api.kanban_board.models.Tasks;
-import com.api.kanban_board.repositories.TasksRepository;
+import com.api.kanban_board.model.Tasks;
+import com.api.kanban_board.repository.TasksRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

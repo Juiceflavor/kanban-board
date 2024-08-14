@@ -1,6 +1,6 @@
-package com.api.kanban_board.repositories;
+package com.api.kanban_board.repository;
 
-import com.api.kanban_board.models.Tasks;
+import com.api.kanban_board.model.Tasks;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

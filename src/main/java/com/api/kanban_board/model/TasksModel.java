@@ -1,6 +1,4 @@
-package com.api.kanban_board.models;
-
-import com.api.kanban_board.exceptions.ConflictException;
+package com.api.kanban_board.model;
 
 public class TasksModel {
     private Long id;
@@ -38,25 +36,25 @@ public class TasksModel {
 
     private void validateId(Long id) {
         if (id == null) {
-            throw new ConflictException("Error the id is null or empty");
+            throw new RuntimeException("id");
         }
     }
 
     private void validateStatus(String statusCode) {
         if (statusCode == null) {
-            throw new ConflictException("Error the status is null or empty");
+            throw new RuntimeException("status");
         }
     }
 
     private void validateDescription(String description) {
         if (description == null) {
-            throw new ConflictException("Error the description is null or empty");
+            throw new RuntimeException("description");
         }
     }
 
     private void validateBoard_id(Long board_id) {
         if (board_id == null) {
-            throw new ConflictException("Error the board_id is null or empty");
+            throw new RuntimeException("board_id");
         }
     }
 

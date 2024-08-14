@@ -1,6 +1,7 @@
 package com.api.kanban_board;
 
-import com.api.kanban_board.models.CustomExcpetion;
+import com.api.kanban_board.model.BoardModel;
+import com.api.kanban_board.model.CustomExcpetion;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,12 @@ public class KanbanBoardApplication {
 
     public static void main(String[] args) throws CustomExcpetion {
         SpringApplication.run(KanbanBoardApplication.class, args);
+
+        BoardModel boardModel = BoardModel.fromData(1L,null,"awd","Finalizado");
+        System.out.println(boardModel);
+
+        BoardModel boardModel2 = BoardModel.create("New board", "awd");
+        System.out.println(boardModel2);
     }
 
     @Bean

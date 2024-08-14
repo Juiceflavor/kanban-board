@@ -1,6 +1,4 @@
-package com.api.kanban_board.models;
-import com.api.kanban_board.exceptions.ConflictException;
-
+package com.api.kanban_board.model;
 
 public class BoardModel {
     private Long id;
@@ -32,25 +30,25 @@ public class BoardModel {
 
     private void validateId(Long id)  {
         if (id == null) {
-            throw new ConflictException("Error the id is null or empty");
+            throw new RuntimeException("id");
         }
     }
 
     private void validateStatus(String status)  {
         if (status == null || status.isEmpty()) {
-            throw new ConflictException("Error the status is null or empty");
+            throw new RuntimeException("status");
         }
     }
 
     private void validateDescription(String description)  {
         if (description == null || description.isEmpty()) {
-            throw new ConflictException("Error the description is null or empty");
+            throw new RuntimeException("description");
         }
     }
 
     private void validateTitle(String title)  {
         if (title == null || title.isEmpty()) {
-            throw new ConflictException("Error the title is null or empty");
+            throw new RuntimeException("title");
         }
     }
 
@@ -92,8 +90,8 @@ public class BoardModel {
         return description;
     }
 
-    public String getStatus() {
-        return status.getCode();
+    public StatusModel getStatus() {
+        return status;
     }
 
     @Override
@@ -102,7 +100,7 @@ public class BoardModel {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", status='" + status.getCode() + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

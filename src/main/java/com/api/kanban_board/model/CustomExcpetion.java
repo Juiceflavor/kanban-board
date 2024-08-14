@@ -1,4 +1,4 @@
-package com.api.kanban_board.models;
+package com.api.kanban_board.model;
 
 public class CustomExcpetion extends Exception {
 
