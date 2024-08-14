@@ -12,12 +12,6 @@ public class KanbanBoardApplication {
 
     public static void main(String[] args) throws CustomExcpetion {
         SpringApplication.run(KanbanBoardApplication.class, args);
-
-        /*BoardModel boardModel = BoardModel.fromData(1L,null,"awd","Finalizado");
-        System.out.println(boardModel);
-
-        BoardModel boardModel2 = BoardModel.create("New board", "awd");
-        System.out.println(boardModel2);*/
     }
 
     @Bean

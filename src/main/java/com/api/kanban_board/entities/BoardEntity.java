@@ -3,7 +3,7 @@ package com.api.kanban_board.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "board")
+@Table(name = "boards")
 public class BoardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
