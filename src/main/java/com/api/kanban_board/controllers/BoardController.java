@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static com.api.kanban_board.mappers.BoardMapper.*;
 
 @RestController
-@RequestMapping("api/board")
+@RequestMapping("api/boards")
 public class BoardController {
 
     @Autowired
