@@ -5,8 +5,6 @@ import com.api.kanban_board.dtos.BoardDto;
 import com.api.kanban_board.models.BoardModel;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-
 @Component
 public final class BoardMapper {
 
@@ -57,13 +55,5 @@ public final class BoardMapper {
                 .Title(boardModel.getTitle())
                 .Description(boardModel.getDescription())
                 .StatusCode(boardModel.getStatus()).build();
-    }
-
-    public static Optional<BoardModel> toModelOptional(Optional<BoardEntity> optionalBoardEntity) {
-        return optionalBoardEntity.map(BoardMapper::toModel);
-    }
-
-    public static Optional<BoardEntity> toEntityOptional(Optional<BoardModel> optionalBoardModel) {
-        return optionalBoardModel.map(BoardMapper::toEntity);
     }
 }

@@ -2,9 +2,7 @@ package com.api.kanban_board.controllers;
 import com.api.kanban_board.entities.BoardEntity;
 import com.api.kanban_board.dtos.BoardDto;
 import com.api.kanban_board.exceptions.ConflictException;
-import com.api.kanban_board.mappers.BoardMapper;
 import com.api.kanban_board.models.BoardModel;
-import com.api.kanban_board.services.BoardService;
 import java.util.List;
 import java.util.stream.Collectors;
 
