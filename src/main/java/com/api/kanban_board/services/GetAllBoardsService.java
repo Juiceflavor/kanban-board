@@ -5,12 +5,15 @@ import com.api.kanban_board.repositories.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-public class GetBoardByIdService {
+public class GetAllBoardsService {
+
     @Autowired
     private BoardRepository boardRepository;
 
-    public BoardModel execute(Long id){
-        return boardRepository.getBoardById(id);
+    public List<BoardModel> execute(){
+        return boardRepository.getAllBoards();
     }
 }
