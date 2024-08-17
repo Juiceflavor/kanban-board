@@ -6,6 +6,7 @@ import com.api.kanban_board.models.BoardModel;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.api.kanban_board.services.GetBoardByIdService;
 import com.api.kanban_board.services.SaveBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,24 +27,21 @@ public class BoardController {
     @Autowired
     private SaveBoardService saveBoardService;
 
+    @Autowired
+    private GetBoardByIdService getBoardByIdService;
+
     @PostMapping
     public ResponseEntity<?> saveBoard(@RequestBody BoardDto boardDto) {
         BoardModel savedBoardModel = saveBoardService.execute(toModel(boardDto));
         return new ResponseEntity<>(toDto(savedBoardModel), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public List<BoardModel> getAllBoards() {
-        List<BoardEntity> boardEntities = boardService.getAllBoards();
-        return boardEntities.stream().map(boardMapper::entityToModel).collect(Collectors.toList());
-    }
-
     @GetMapping("{id}")
-    public BoardModel searchBoardById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> searchBoardById(@PathVariable("id") Long id) {
         if(id == null || id == 0){
             throw new ConflictException("id is null or 0");
         }
-        BoardEntity boardEntity = boardService.getBoardById(id);
-        return boardMapper.entityToModel(boardEntity);
+        BoardModel boardModel = getBoardByIdService.execute(id);
+        return new ResponseEntity<>(toDto(boardModel), HttpStatus.OK);
     }
 }
