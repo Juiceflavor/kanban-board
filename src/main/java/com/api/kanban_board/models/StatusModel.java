@@ -1,4 +1,5 @@
-package com.api.kanban_board.model;
+package com.api.kanban_board.models;
+import com.api.kanban_board.exceptions.WarningException;
 
 public enum StatusModel {
     INACTIVE("Inactive", "Inactive status", "000"),
@@ -22,16 +23,16 @@ public enum StatusModel {
                 return statusModel;
             }
         }
-        throw new RuntimeException("Invalid status code: " + statusCode);
+        throw new WarningException("The code " + statusCode + " is not a valid status model");
     }
 
     public StatusModel transition() {
         StatusModel transitioned = null;
         switch (this) {
-            case INACTIVE -> throw new RuntimeException("Cannot transition from " + this.getName());
+            case INACTIVE -> throw new WarningException("Cannot transition from " + this.getName());
             case TO_DO -> transitioned = IN_PROGRESS;
             case IN_PROGRESS -> transitioned = DONE;
-            case DONE -> throw new RuntimeException("The " + this.getName() + " has finished");
+            case DONE -> throw new WarningException("The " + this.getName() + " has finished");
         }
 
         return transitioned;
@@ -39,17 +40,17 @@ public enum StatusModel {
 
     public StatusModel inactive() {
         if (this.equals(StatusModel.INACTIVE)) {
-            throw new RuntimeException("task");
+            throw new WarningException("It cannot be inactivated, already in this state");
         }
         if (this.equals(StatusModel.DONE)) {
-            throw new RuntimeException("task");
+            throw new WarningException("It cannot be inactivated, it was already done");
         }
         return StatusModel.INACTIVE;
     }
 
     public StatusModel active() {
         if (!this.equals(StatusModel.INACTIVE)) {
-            throw new RuntimeException("task");
+            throw new WarningException("It cannot be activated, isn't in the status Inactive");
         }
         return StatusModel.TO_DO;
     }
