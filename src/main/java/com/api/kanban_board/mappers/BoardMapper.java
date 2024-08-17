@@ -30,7 +30,7 @@ public final class BoardMapper {
                 .Id(boardModel.getId())
                 .Title(boardModel.getTitle())
                 .Description(boardModel.getDescription())
-                .Status(boardModel.getStatus()).build();
+                .Status(boardModel.getStatus().getCode()).build();
 
         return boardEntity;
     }
@@ -50,10 +50,10 @@ public final class BoardMapper {
             return null;
         }
 
-        return new BoardDto.Builder()
-                .Id(boardModel.getId())
-                .Title(boardModel.getTitle())
-                .Description(boardModel.getDescription())
-                .StatusCode(boardModel.getStatus()).build();
+        return BoardDto.builder()
+                .id(boardModel.getId())
+                .title(boardModel.getTitle())
+                .description(boardModel.getDescription())
+                .statusCode(boardModel.getStatus().getCode()).build();
     }
 }
