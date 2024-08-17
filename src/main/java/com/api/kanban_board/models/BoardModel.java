@@ -55,7 +55,7 @@ public class BoardModel {
     }
 
     public static BoardModel create(String title, String description)  {
-        return new BoardModel(title, description, "To do");
+        return new BoardModel(title, description, StatusModel.TO_DO.getCode());
     }
 
     public static BoardModel fromData(long id, String title, String description, String status)  {
