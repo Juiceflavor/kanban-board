@@ -41,9 +41,6 @@ public class BoardController {
 
     @GetMapping("{id}")
     public ResponseEntity<?> searchBoardById(@PathVariable("id") Long id) {
-        if(id == null || id == 0){
-            throw new ConflictException("id is null or 0");
-        }
         BoardModel boardModel = getBoardByIdService.execute(id);
         return new ResponseEntity<>(toDto(boardModel), HttpStatus.OK);
     }
