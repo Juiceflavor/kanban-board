@@ -26,11 +26,11 @@ public final class BoardMapper {
             return null;
         }
 
-        BoardEntity boardEntity = new BoardEntity.Builder()
-                .Id(boardModel.getId())
-                .Title(boardModel.getTitle())
-                .Description(boardModel.getDescription())
-                .Status(boardModel.getStatus().getCode()).build();
+        BoardEntity boardEntity = BoardEntity.builder()
+                .id(boardModel.getId())
+                .title(boardModel.getTitle())
+                .description(boardModel.getDescription())
+                .status(boardModel.getStatus().getCode()).build();
 
         return boardEntity;
     }
