@@ -16,7 +16,7 @@ public final class BoardMapper {
             return null;
         }
 
-        BoardModel boardModel = BoardModel.fromData(boardDto.getId(), boardDto.getTitle(), boardDto.getDescription(), boardDto.getStatusCode());
+        BoardModel boardModel = BoardModel.create(boardDto.getTitle(), boardDto.getDescription());
 
         return boardModel;
     }
