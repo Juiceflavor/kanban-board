@@ -1,7 +1,11 @@
 package com.api.kanban_board.models;
 
 import com.api.kanban_board.exceptions.ConflictException;
+import lombok.Getter;
+import lombok.ToString;
 
+@Getter
+@ToString
 public class TasksModel {
     private Long id;
     private String name;
@@ -84,42 +88,5 @@ public class TasksModel {
         this.status = this.status.active();
 
         return fromData(this.id, this.name, this.status.getCode(), this.description, this.parent_id, this.board_id);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public StatusModel getStatus() {
-        return status;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Long getParent_id() {
-        return parent_id;
-    }
-
-    public Long getBoard_id() {
-        return board_id;
-    }
-
-    @Override
-    public String toString() {
-        return "TasksModel{" +
-                "id=" + id +
-                ", title='" + name + '\'' +
-                ", status='" + status + '\'' +
-                ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
-                ", parent_id='" + parent_id + '\'' +
-                ", board_id='" + board_id + '\'' +
-                '}';
     }
 }

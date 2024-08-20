@@ -1,6 +1,8 @@
 package com.api.kanban_board.models;
 import com.api.kanban_board.exceptions.WarningException;
+import lombok.Getter;
 
+@Getter
 public enum StatusModel {
     INACTIVE("Inactive", "Inactive status", "000"),
     TO_DO("To do", "Initial status", "001"),
@@ -53,17 +55,5 @@ public enum StatusModel {
             throw new WarningException("It cannot be activated, isn't in the status Inactive");
         }
         return StatusModel.TO_DO;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getCode() {
-        return code;
     }
 }
