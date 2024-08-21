@@ -1,7 +1,10 @@
 package com.api.kanban_board.models;
 import com.api.kanban_board.exceptions.ConflictException;
+import lombok.Getter;
+import lombok.ToString;
 
-
+@Getter
+@ToString
 public class BoardModel {
     private Long id;
     private String title;
@@ -78,31 +81,5 @@ public class BoardModel {
         this.status = this.status.active();
 
         return fromData(this.id, this.title, this.description, this.status.getCode());
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getStatus() {
-        return status.getCode();
-    }
-
-    @Override
-    public String toString() {
-        return "BoardModel{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", status='" + status.getCode() + '\'' +
-                '}';
     }
 }

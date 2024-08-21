@@ -30,7 +30,7 @@ public final class BoardMapper {
                 .id(boardModel.getId())
                 .title(boardModel.getTitle())
                 .description(boardModel.getDescription())
-                .status(boardModel.getStatus()).build();
+                .status(boardModel.getStatus().getCode()).build();
 
         return boardEntity;
     }

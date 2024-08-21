@@ -6,7 +6,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class TasksModel {
+public class TaskModel {
     private Long id;
     private String name;
     private StatusModel status;
@@ -14,7 +14,7 @@ public class TasksModel {
     private Long parent_id;
     private Long board_id;
 
-    private TasksModel(Long id, String name, String statusCode, String description, Long parent_id, Long board_id) {
+    private TaskModel(Long id, String name, String statusCode, String description, Long parent_id, Long board_id) {
         validateBoard_id(board_id);
         validateDescription(description);
         validateStatus(statusCode);
@@ -28,7 +28,7 @@ public class TasksModel {
         this.board_id = board_id;
     }
 
-    private TasksModel(String name, String statusCode, String description, Long parent_id, Long board_id) {
+    private TaskModel(String name, String statusCode, String description, Long parent_id, Long board_id) {
         validateBoard_id(board_id);
         validateDescription(description);
         validateStatus(statusCode);
@@ -64,27 +64,27 @@ public class TasksModel {
         }
     }
 
-    public static TasksModel create(String name, String description, Long parent_id, Long board_id) {
-        return new TasksModel(0L, name,"To do", description, parent_id, board_id);
+    public static TaskModel create(String name, String description, Long parent_id, Long board_id) {
+        return new TaskModel(0L, name, StatusModel.TO_DO.getCode(), description, parent_id, board_id);
     }
 
-    public static TasksModel fromData(Long id, String name, String status, String description, Long parent_id, Long board_id) {
-        return new TasksModel(id, name, status, description, parent_id, board_id);
+    public static TaskModel fromData(Long id, String name, String status, String description, Long parent_id, Long board_id) {
+        return new TaskModel(id, name, status, description, parent_id, board_id);
     }
 
-    public TasksModel transition(){
+    public TaskModel transition(){
         this.status = this.status.transition();
 
         return fromData(this.id, this.name, this.status.getCode(), this.description, this.parent_id, this.board_id);
     }
 
-    public TasksModel inactive() {
+    public TaskModel inactive() {
         this.status = this.status.inactive();
 
         return fromData(this.id, this.name, this.status.getCode(), this.description, this.parent_id, this.board_id);
     }
 
-    public TasksModel active() {
+    public TaskModel active() {
         this.status = this.status.active();
 
         return fromData(this.id, this.name, this.status.getCode(), this.description, this.parent_id, this.board_id);

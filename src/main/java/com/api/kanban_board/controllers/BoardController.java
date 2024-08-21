@@ -1,14 +1,13 @@
 package com.api.kanban_board.controllers;
 import com.api.kanban_board.dtos.BoardDto;
-import com.api.kanban_board.exceptions.ConflictException;
 import com.api.kanban_board.mappers.BoardMapper;
 import com.api.kanban_board.models.BoardModel;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.api.kanban_board.services.GetAllBoardsService;
-import com.api.kanban_board.services.GetBoardByIdService;
-import com.api.kanban_board.services.SaveBoardService;
+import com.api.kanban_board.services.Boards.GetAllBoardsService;
+import com.api.kanban_board.services.Boards.GetBoardByIdService;
+import com.api.kanban_board.services.Boards.SaveBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +29,7 @@ public class BoardController {
 
     @Autowired
     private GetBoardByIdService getBoardByIdService;
+
     @Autowired
     private GetAllBoardsService getAllBoardsService;
 
