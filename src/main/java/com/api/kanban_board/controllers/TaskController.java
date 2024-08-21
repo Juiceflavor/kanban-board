@@ -15,7 +15,7 @@ import static com.api.kanban_board.mappers.TaskMapper.*;
 
 @RestController
 @RequestMapping("api/tasks")
-public class TasksController {
+public class TaskController {
 
     @Autowired
     private SaveTaskService saveTaskService;

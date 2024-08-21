@@ -65,7 +65,7 @@ public class TaskModel {
     }
 
     public static TaskModel create(String name, String description, Long parent_id, Long board_id) {
-        return new TaskModel(0L, name, StatusModel.TO_DO.getCode(), description, parent_id, board_id);
+        return new TaskModel(name, StatusModel.TO_DO.getCode(), description, parent_id, board_id);
     }
 
     public static TaskModel fromData(Long id, String name, String status, String description, Long parent_id, Long board_id) {
