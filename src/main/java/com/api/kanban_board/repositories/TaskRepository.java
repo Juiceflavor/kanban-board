@@ -10,4 +10,6 @@ public interface TaskRepository {
     TaskModel save(TaskModel taskModel);
 
     List<TaskModel> getAllTaskByBoardId(Long board_id);
+
+    TaskModel getTaskById(Long id);
 }
