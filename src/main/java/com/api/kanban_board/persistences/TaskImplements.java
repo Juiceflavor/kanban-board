@@ -31,6 +31,6 @@ public class TaskImplements implements TaskRepository {
     @Override
     public List<TaskModel> getAllTaskByBoardId(Long board_id) {
         List<TaskEntity> tasksEntities = taskJpaRepositoryAdapter.getTasksByBoardId(board_id);
-        return tasksEntities.stream().map(entity -> toModel(entity)).collect(Collectors.toList());
+        return toModel(tasksEntities);
     }
 }

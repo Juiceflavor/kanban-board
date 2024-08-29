@@ -43,7 +43,6 @@ public class TaskController {
     @GetMapping("board_id/{board_id}")
     public ResponseEntity<List<TaskDto>> getAllTasksByBoardId(@PathVariable("board_id") Long board_id) {
         List<TaskModel> tasks = getAllTasksByBoardIdService.execute(board_id);
-        List<TaskDto> tasksDtos = tasks.stream().map(model -> toDto(model)).collect(Collectors.toList());
-        return new ResponseEntity<>(tasksDtos, HttpStatus.OK);
+        return new ResponseEntity<>(toDto(tasks), HttpStatus.OK);
     }
 }
