@@ -48,9 +48,6 @@ public class BoardController {
     @GetMapping
     public ResponseEntity<List<BoardDto>> getAllBoards() {
         List<BoardModel> boards = getAllBoardsService.execute();
-        List<BoardDto> boardDtos = boards.stream()
-                .map(BoardMapper::toDto)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(boardDtos, HttpStatus.OK);
+        return new ResponseEntity<>(toDto(boards), HttpStatus.OK);
     }
 }

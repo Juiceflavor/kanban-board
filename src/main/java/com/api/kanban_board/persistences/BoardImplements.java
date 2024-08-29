@@ -31,6 +31,6 @@ public class BoardImplements implements BoardRepository {
     @Override
     public List<BoardModel> getAllBoards() {
         List<BoardEntity> boardEntities = boardJpaRepositoryAdapter.findAll();
-        return boardEntities.stream().map(entity -> toModel(entity)).collect(Collectors.toList());
+        return toModel(boardEntities);
     }
 }
