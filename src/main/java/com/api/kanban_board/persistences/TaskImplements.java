@@ -26,6 +26,6 @@ public class TaskImplements implements TaskRepository {
     @Override
     public List<TaskModel> getAllTasks() {
         List<TaskEntity> taskEntities = taskJpaRepositoryAdapter.findAll();
-        return taskEntities.stream().map(entity -> toModel(entity)).collect(Collectors.toList());
+        return toModel(taskEntities);
     }
 }

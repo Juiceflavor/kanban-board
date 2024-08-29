@@ -5,6 +5,9 @@ import com.api.kanban_board.entities.TaskEntity;
 import com.api.kanban_board.models.TaskModel;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class TaskMapper {
 
@@ -18,6 +21,23 @@ public class TaskMapper {
 
         return TaskModel.create(taskDto.getName(), taskDto.getDescription(), taskDto.getParent_id(),
                 taskDto.getBoard_id());
+    }
+
+    public static TaskModel toModel(TaskEntity taskEntity) {
+        if (taskEntity == null) {
+            return null;
+        }
+
+        return TaskModel.fromData(taskEntity.getId(), taskEntity.getName(), taskEntity.getStatus(),
+                taskEntity.getDescription(), taskEntity.getParent_id(), taskEntity.getBoard_id());
+    }
+
+    public static List<TaskModel> toModel(List<TaskEntity> taskEntities) {
+        if (taskEntities == null) {
+            return null;
+        }
+
+        return taskEntities.stream().map(TaskMapper::toModel).collect(Collectors.toList());
     }
 
     public static TaskEntity toEntity(TaskModel taskModel) {
@@ -34,15 +54,6 @@ public class TaskMapper {
                 .board_id(taskModel.getBoard_id()).build();
     }
 
-    public static TaskModel toModel(TaskEntity taskEntity) {
-        if (taskEntity == null) {
-            return null;
-        }
-
-        return TaskModel.fromData(taskEntity.getId(), taskEntity.getName(), taskEntity.getStatus(),
-                taskEntity.getDescription(), taskEntity.getParent_id(), taskEntity.getBoard_id());
-    }
-
     public static TaskDto toDto(TaskModel taskModel) {
         if (taskModel == null) {
             return null;
@@ -55,5 +66,12 @@ public class TaskMapper {
                 .statusCode(taskModel.getStatus().getCode())
                 .parent_id(taskModel.getParent_id())
                 .board_id(taskModel.getBoard_id()).build();
+    }
+
+    public static List<TaskDto> toDto(List<TaskModel> taskModels) {
+        if (taskModels == null) {
+            return null;
+        }
+        return taskModels.stream().map(TaskMapper::toDto).collect(Collectors.toList());
     }
 }

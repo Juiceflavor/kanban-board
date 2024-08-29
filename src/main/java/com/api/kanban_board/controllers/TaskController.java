@@ -33,7 +33,6 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<List<TaskDto>> getAllTasks() {
         List<TaskModel> tasks = getAllTasksService.execute();
-        List<TaskDto> tasksDtos = tasks.stream().map(TaskMapper::toDto).collect(Collectors.toList());
-        return new ResponseEntity<>(tasksDtos, HttpStatus.OK);
+        return new ResponseEntity<>(toDto(tasks), HttpStatus.OK);
     }
 }
