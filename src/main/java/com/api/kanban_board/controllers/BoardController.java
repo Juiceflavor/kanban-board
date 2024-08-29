@@ -40,7 +40,7 @@ public class BoardController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> searchBoardById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getBoardById(@PathVariable("id") Long id) {
         BoardModel boardModel = getBoardByIdService.execute(id);
         return new ResponseEntity<>(toDto(boardModel), HttpStatus.OK);
     }

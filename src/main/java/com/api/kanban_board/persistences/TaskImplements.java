@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.api.kanban_board.mappers.TaskMapper.*;
 
@@ -21,6 +20,11 @@ public class TaskImplements implements TaskRepository {
     @Override
     public TaskModel save(TaskModel taskModel) {
         return toModel(taskJpaRepositoryAdapter.save(toEntity(taskModel)));
+    }
+
+    @Override
+    public TaskModel getTaskById(Long id) {
+        return toModel(taskJpaRepositoryAdapter.findById(id).get());
     }
 
     @Override
