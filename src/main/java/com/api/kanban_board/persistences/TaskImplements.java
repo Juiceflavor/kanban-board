@@ -19,17 +19,17 @@ public class TaskImplements implements TaskRepository {
 
     @Override
     public TaskModel save(TaskModel taskModel) {
-        return toModel(taskJpaRepositoryAdapter.save(toEntity(taskModel)));
+        return toModelList(taskJpaRepositoryAdapter.save(toEntity(taskModel)));
     }
 
     @Override
     public TaskModel getTaskById(Long id) {
-        return toModel(taskJpaRepositoryAdapter.findById(id).get());
+        return toModelList(taskJpaRepositoryAdapter.findById(id).get());
     }
 
     @Override
     public List<TaskModel> getAllTasks() {
         List<TaskEntity> taskEntities = taskJpaRepositoryAdapter.findAll();
-        return toModel(taskEntities);
+        return toModelList(taskEntities);
     }
 }

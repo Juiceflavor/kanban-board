@@ -14,7 +14,7 @@ public class TaskMapper {
     public TaskMapper() {
     }
 
-    public static TaskModel toModel(TaskDto taskDto) {
+    public static TaskModel toModelList(TaskDto taskDto) {
         if (taskDto == null) {
             return null;
         }
@@ -23,7 +23,7 @@ public class TaskMapper {
                 taskDto.getBoard_id());
     }
 
-    public static TaskModel toModel(TaskEntity taskEntity) {
+    public static TaskModel toModelList(TaskEntity taskEntity) {
         if (taskEntity == null) {
             return null;
         }
@@ -32,12 +32,12 @@ public class TaskMapper {
                 taskEntity.getDescription(), taskEntity.getParent_id(), taskEntity.getBoard_id());
     }
 
-    public static List<TaskModel> toModel(List<TaskEntity> taskEntities) {
+    public static List<TaskModel> toModelList(List<TaskEntity> taskEntities) {
         if (taskEntities == null) {
             return null;
         }
 
-        return taskEntities.stream().map(TaskMapper::toModel).collect(Collectors.toList());
+        return taskEntities.stream().map(TaskMapper::toModelList).collect(Collectors.toList());
     }
 
     public static TaskEntity toEntity(TaskModel taskModel) {
@@ -54,7 +54,7 @@ public class TaskMapper {
                 .board_id(taskModel.getBoard_id()).build();
     }
 
-    public static TaskDto toDto(TaskModel taskModel) {
+    public static TaskDto toDtoList(TaskModel taskModel) {
         if (taskModel == null) {
             return null;
         }
@@ -68,10 +68,10 @@ public class TaskMapper {
                 .board_id(taskModel.getBoard_id()).build();
     }
 
-    public static List<TaskDto> toDto(List<TaskModel> taskModels) {
+    public static List<TaskDto> toDtoList(List<TaskModel> taskModels) {
         if (taskModels == null) {
             return null;
         }
-        return taskModels.stream().map(TaskMapper::toDto).collect(Collectors.toList());
+        return taskModels.stream().map(TaskMapper::toDtoList).collect(Collectors.toList());
     }
 }

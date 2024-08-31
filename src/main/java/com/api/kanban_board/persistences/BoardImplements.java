@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.api.kanban_board.mappers.BoardMapper.*;
 
@@ -20,17 +19,17 @@ public class BoardImplements implements BoardRepository {
 
     @Override
     public BoardModel save(BoardModel boardModel) {
-        return toModel(boardJpaRepositoryAdapter.save(toEntity(boardModel)));
+        return toModelList(boardJpaRepositoryAdapter.save(toEntity(boardModel)));
     }
 
     @Override
     public BoardModel getBoardById(Long id) {
-        return toModel(boardJpaRepositoryAdapter.findById(id).get());
+        return toModelList(boardJpaRepositoryAdapter.findById(id).get());
     }
 
     @Override
     public List<BoardModel> getAllBoards() {
         List<BoardEntity> boardEntities = boardJpaRepositoryAdapter.findAll();
-        return boardEntities.stream().map(entity -> toModel(entity)).collect(Collectors.toList());
+        return toModelList(boardEntities);
     }
 }
