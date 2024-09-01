@@ -1,9 +1,7 @@
 package com.api.kanban_board.controllers;
 import com.api.kanban_board.dtos.BoardDto;
-import com.api.kanban_board.mappers.BoardMapper;
 import com.api.kanban_board.models.BoardModel;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.api.kanban_board.services.Boards.GetAllBoardsService;
 import com.api.kanban_board.services.Boards.GetBoardByIdService;
@@ -48,9 +46,6 @@ public class BoardController {
     @GetMapping
     public ResponseEntity<List<BoardDto>> getAllBoards() {
         List<BoardModel> boards = getAllBoardsService.execute();
-        List<BoardDto> boardDtos = boards.stream()
-                .map(BoardMapper::toDto)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(boardDtos, HttpStatus.OK);
+        return new ResponseEntity<>(toDtoList(boards), HttpStatus.OK);
     }
 }

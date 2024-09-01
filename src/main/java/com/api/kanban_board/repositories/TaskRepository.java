@@ -11,5 +11,7 @@ public interface TaskRepository {
 
     List<TaskModel> getAllTaskByBoardId(Long board_id);
 
+    List<TaskModel> getAllTasks();
+
     TaskModel getTaskById(Long id);
 }

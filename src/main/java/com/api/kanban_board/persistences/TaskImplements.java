@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.api.kanban_board.mappers.TaskMapper.*;
 
@@ -29,8 +28,14 @@ public class TaskImplements implements TaskRepository {
     }
 
     @Override
+    public List<TaskModel> getAllTasks() {
+        List<TaskEntity> taskEntities = taskJpaRepositoryAdapter.findAll();
+        return toModelList(taskEntities);
+    }
+
+    @Override
     public List<TaskModel> getAllTaskByBoardId(Long board_id) {
         List<TaskEntity> tasksEntities = taskJpaRepositoryAdapter.getTasksByBoardId(board_id);
-        return toModel(tasksEntities);
+        return toModelList(tasksEntities);
     }
 }

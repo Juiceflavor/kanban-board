@@ -32,7 +32,7 @@ public class TaskMapper {
                 taskEntity.getDescription(), taskEntity.getParent_id(), taskEntity.getBoard_id());
     }
 
-    public static List<TaskModel> toModel(List<TaskEntity> taskEntities) {
+    public static List<TaskModel> toModelList(List<TaskEntity> taskEntities) {
         if (taskEntities == null) {
             return null;
         }
@@ -68,7 +68,7 @@ public class TaskMapper {
                 .board_id(taskModel.getBoard_id()).build();
     }
 
-    public static List<TaskDto> toDto(List<TaskModel> taskModels) {
+    public static List<TaskDto> toDtoList(List<TaskModel> taskModels) {
         if (taskModels == null) {
             return null;
         }
