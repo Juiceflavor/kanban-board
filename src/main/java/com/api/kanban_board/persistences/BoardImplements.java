@@ -19,12 +19,12 @@ public class BoardImplements implements BoardRepository {
 
     @Override
     public BoardModel save(BoardModel boardModel) {
-        return toModelList(boardJpaRepositoryAdapter.save(toEntity(boardModel)));
+        return toModel(boardJpaRepositoryAdapter.save(toEntity(boardModel)));
     }
 
     @Override
     public BoardModel getBoardById(Long id) {
-        return toModelList(boardJpaRepositoryAdapter.findById(id).get());
+        return toModel(boardJpaRepositoryAdapter.findById(id).get());
     }
 
     @Override

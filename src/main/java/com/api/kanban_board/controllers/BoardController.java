@@ -33,14 +33,14 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<?> saveBoard(@RequestBody BoardDto boardDto) {
-        BoardModel savedBoardModel = saveBoardService.execute(toModelList(boardDto));
-        return new ResponseEntity<>(toDtoList(savedBoardModel), HttpStatus.CREATED);
+        BoardModel savedBoardModel = saveBoardService.execute(toModel(boardDto));
+        return new ResponseEntity<>(toDto(savedBoardModel), HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<?> getBoardById(@PathVariable("id") Long id) {
         BoardModel boardModel = getBoardByIdService.execute(id);
-        return new ResponseEntity<>(toDtoList(boardModel), HttpStatus.OK);
+        return new ResponseEntity<>(toDto(boardModel), HttpStatus.OK);
     }
 
     @GetMapping

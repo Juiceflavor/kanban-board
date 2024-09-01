@@ -14,7 +14,7 @@ public final class BoardMapper {
     private BoardMapper(){
     }
 
-    public static BoardModel toModelList(BoardDto boardDto) {
+    public static BoardModel toModel(BoardDto boardDto) {
         if (boardDto == null) {
             return null;
         }
@@ -24,7 +24,7 @@ public final class BoardMapper {
         return boardModel;
     }
 
-    public static BoardModel toModelList(BoardEntity boardEntity){
+    public static BoardModel toModel(BoardEntity boardEntity){
         if (boardEntity == null) {
             return null;
         }
@@ -38,7 +38,7 @@ public final class BoardMapper {
         if (boardEntitiesList == null) {
             return null;
         }
-        return boardEntitiesList.stream().map(entity -> toModelList(entity)).collect(Collectors.toList());
+        return boardEntitiesList.stream().map(entity -> toModel(entity)).collect(Collectors.toList());
     }
 
     public static BoardEntity toEntity(BoardModel boardModel){
@@ -55,7 +55,7 @@ public final class BoardMapper {
         return boardEntity;
     }
 
-    public static BoardDto toDtoList(BoardModel boardModel){
+    public static BoardDto toDto(BoardModel boardModel){
         if (boardModel == null) {
             return null;
         }
@@ -71,6 +71,6 @@ public final class BoardMapper {
         if (boardModelList == null) {
             return null;
         }
-        return boardModelList.stream().map(entity -> toDtoList(entity)).collect(Collectors.toList());
+        return boardModelList.stream().map(entity -> toDto(entity)).collect(Collectors.toList());
     }
 }
