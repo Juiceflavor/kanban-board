@@ -1,9 +1,7 @@
 package com.api.kanban_board.controllers;
 import com.api.kanban_board.dtos.BoardDto;
-import com.api.kanban_board.mappers.BoardMapper;
 import com.api.kanban_board.models.BoardModel;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.api.kanban_board.services.Boards.GetAllBoardsService;
 import com.api.kanban_board.services.Boards.GetBoardByIdService;
@@ -35,22 +33,19 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<?> saveBoard(@RequestBody BoardDto boardDto) {
-        BoardModel savedBoardModel = saveBoardService.execute(toModel(boardDto));
-        return new ResponseEntity<>(toDto(savedBoardModel), HttpStatus.CREATED);
+        BoardModel savedBoardModel = saveBoardService.execute(toModelList(boardDto));
+        return new ResponseEntity<>(toDtoList(savedBoardModel), HttpStatus.CREATED);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<?> getBoardById(@PathVariable("id") Long id) {
         BoardModel boardModel = getBoardByIdService.execute(id);
-        return new ResponseEntity<>(toDto(boardModel), HttpStatus.OK);
+        return new ResponseEntity<>(toDtoList(boardModel), HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<BoardDto>> getAllBoards() {
         List<BoardModel> boards = getAllBoardsService.execute();
-        List<BoardDto> boardDtos = boards.stream()
-                .map(BoardMapper::toDto)
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(boardDtos, HttpStatus.OK);
+        return new ResponseEntity<>(toDtoList(boards), HttpStatus.OK);
     }
 }
