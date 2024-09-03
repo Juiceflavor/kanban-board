@@ -3,10 +3,9 @@ import com.api.kanban_board.dtos.BoardDto;
 import com.api.kanban_board.models.BoardModel;
 import java.util.List;
 
-import com.api.kanban_board.services.Boards.GetAllBoardsService;
-import com.api.kanban_board.services.Boards.GetBoardByIdService;
-import com.api.kanban_board.services.Boards.SaveBoardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.api.kanban_board.services.boards.GetAllBoardsService;
+import com.api.kanban_board.services.boards.GetBoardByIdService;
+import com.api.kanban_board.services.boards.SaveBoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +21,19 @@ import static com.api.kanban_board.mappers.BoardMapper.*;
 @RequestMapping("api/boards")
 public class BoardController {
 
-    @Autowired
-    private SaveBoardService saveBoardService;
+    private final SaveBoardService saveBoardService;
 
-    @Autowired
-    private GetBoardByIdService getBoardByIdService;
+    private final GetBoardByIdService getBoardByIdService;
 
-    @Autowired
-    private GetAllBoardsService getAllBoardsService;
+    private final GetAllBoardsService getAllBoardsService;
+
+    public BoardController(SaveBoardService saveBoardService,
+                           GetBoardByIdService getBoardByIdService,
+                           GetAllBoardsService getAllBoardsService) {
+        this.saveBoardService = saveBoardService;
+        this.getBoardByIdService = getBoardByIdService;
+        this.getAllBoardsService = getAllBoardsService;
+    }
 
     @PostMapping
     public ResponseEntity<?> saveBoard(@RequestBody BoardDto boardDto) {

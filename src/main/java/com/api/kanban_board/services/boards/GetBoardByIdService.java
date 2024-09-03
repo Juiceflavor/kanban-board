@@ -1,14 +1,17 @@
-package com.api.kanban_board.services.Boards;
+package com.api.kanban_board.services.boards;
 
 import com.api.kanban_board.models.BoardModel;
 import com.api.kanban_board.repositories.BoardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GetBoardByIdService {
-    @Autowired
-    private BoardRepository boardRepository;
+
+    private final BoardRepository boardRepository;
+
+    public GetBoardByIdService(BoardRepository boardRepository) {
+        this.boardRepository = boardRepository;
+    }
 
     public BoardModel execute(Long id){
         return boardRepository.getBoardById(id);

@@ -4,7 +4,6 @@ import com.api.kanban_board.entities.TaskEntity;
 import com.api.kanban_board.models.TaskModel;
 import com.api.kanban_board.persistences.adapters.TaskJpaRepositoryAdapter;
 import com.api.kanban_board.repositories.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,8 +13,11 @@ import static com.api.kanban_board.mappers.TaskMapper.*;
 @Component
 public class TaskImplements implements TaskRepository {
 
-    @Autowired
-    private TaskJpaRepositoryAdapter taskJpaRepositoryAdapter;
+    private final TaskJpaRepositoryAdapter taskJpaRepositoryAdapter;
+
+    public TaskImplements(TaskJpaRepositoryAdapter taskJpaRepositoryAdapter) {
+        this.taskJpaRepositoryAdapter = taskJpaRepositoryAdapter;
+    }
 
     @Override
     public TaskModel save(TaskModel taskModel) {
