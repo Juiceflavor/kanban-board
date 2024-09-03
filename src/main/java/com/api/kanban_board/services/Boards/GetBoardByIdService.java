@@ -1,4 +1,4 @@
-package com.api.kanban_board.services;
+package com.api.kanban_board.services.Boards;
 
 import com.api.kanban_board.models.BoardModel;
 import com.api.kanban_board.repositories.BoardRepository;
