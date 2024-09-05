@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.List;
 
+import static com.api.kanban_board.MockUtils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -18,29 +19,33 @@ class GetAllBoardsServiceTest {
 
     private GetAllBoardsService getAllBoardsService;
 
+    private List<BoardModel> mockBoardList;
+
+    private List<BoardModel> result;
+
+    private BoardModel board;
+
     @BeforeEach
     void setUp() {
+        // Arrange
         boardRepositoryMock = Mockito.mock(BoardRepository.class);
 
         getAllBoardsService = new GetAllBoardsService(boardRepositoryMock);
 
-        BoardModel mockBoard = BoardModel.fromData(1L, "Primer tablero",
-                "Primer tablero", "001");
-
-        List<BoardModel> mockBoardList = List.of(mockBoard);
-
-        Mockito.when(boardRepositoryMock.getAllBoards()).thenReturn(mockBoardList);
+        mockBoardList = List.of(makeBoardModelMock());
     }
 
     @Test
-    void getAllBoards() {
-        List<BoardModel> result = getAllBoardsService.execute();
+    void shouldGetAllBoardsSuccess() {
+        Mockito.when(boardRepositoryMock.getAllBoards()).thenReturn(mockBoardList);
 
+        // Act
+        result = getAllBoardsService.execute();
+        board = result.get(0);
+
+        // Assert
         assertNotNull(result);
-
         assertEquals(1, result.size());
-
-        BoardModel board = result.get(0);
         assertEquals(1L, board.getId());
         assertEquals("Primer tablero", board.getTitle());
         assertEquals("Primer tablero", board.getDescription());
