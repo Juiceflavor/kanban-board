@@ -1,5 +1,6 @@
 package com.api.kanban_board.services.boards;
 
+import com.api.kanban_board.MockUtils;
 import com.api.kanban_board.models.BoardModel;
 import com.api.kanban_board.repositories.BoardRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -7,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static com.api.kanban_board.MockUtils.makeBoardModelMock;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SaveBoardServiceTest {
@@ -19,16 +19,17 @@ class SaveBoardServiceTest {
 
     @BeforeEach
     void setUp() {
-        // Arrange
         boardRepositoryMock = Mockito.mock(BoardRepository.class);
 
         saveBoardService = new SaveBoardService(boardRepositoryMock);
 
-        mockBoardModel = makeBoardModelMock();
+        MockUtils mockUtils = new MockUtils();
+        mockBoardModel = mockUtils.makeBoardModelMock();
     }
 
     @Test
     void shouldSaveBoardSuccess() {
+        // Arrange
         Mockito.when(boardRepositoryMock.save(Mockito.any())).thenReturn(mockBoardModel);
 
         // Act

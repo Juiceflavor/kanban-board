@@ -1,5 +1,6 @@
 package com.api.kanban_board.services.boards;
 
+import com.api.kanban_board.MockUtils;
 import com.api.kanban_board.models.BoardModel;
 import com.api.kanban_board.repositories.BoardRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -7,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static com.api.kanban_board.MockUtils.makeBoardModelMock;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -21,18 +21,19 @@ class GetBoardByIdServiceTest {
 
     @BeforeEach
     void setUp() {
-        // Arrange
         boardRepositoryMock = Mockito.mock(BoardRepository.class);
 
         getBoardByIdService = new GetBoardByIdService(boardRepositoryMock);
 
-        mockBoardModel = makeBoardModelMock();
+        MockUtils mockUtils = new MockUtils();
+        mockBoardModel = mockUtils.makeBoardModelMock();
 
         id = mockBoardModel.getId();
     }
 
     @Test
     void shouldGetAllBoardsByIdSuccess() {
+        // Arrange
         Mockito.when(boardRepositoryMock.getBoardById(id)).thenReturn(mockBoardModel);
 
         // Act
