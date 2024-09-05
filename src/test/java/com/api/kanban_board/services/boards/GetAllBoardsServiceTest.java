@@ -16,13 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class GetAllBoardsServiceTest {
 
     private BoardRepository boardRepositoryMock;
-
     private GetAllBoardsService getAllBoardsService;
-
     private List<BoardModel> mockBoardList;
-
-    private List<BoardModel> result;
-
+    private List<BoardModel> response;
     private BoardModel board;
 
     @BeforeEach
@@ -40,12 +36,12 @@ class GetAllBoardsServiceTest {
         Mockito.when(boardRepositoryMock.getAllBoards()).thenReturn(mockBoardList);
 
         // Act
-        result = getAllBoardsService.execute();
-        board = result.get(0);
+        response = getAllBoardsService.execute();
+        board = response.get(0);
 
         // Assert
-        assertNotNull(result);
-        assertEquals(1, result.size());
+        assertNotNull(response);
+        assertEquals(1, response.size());
         assertEquals(1L, board.getId());
         assertEquals("Primer tablero", board.getTitle());
         assertEquals("Primer tablero", board.getDescription());
