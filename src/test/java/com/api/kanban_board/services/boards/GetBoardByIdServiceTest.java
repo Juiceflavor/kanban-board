@@ -17,7 +17,6 @@ class GetBoardByIdServiceTest {
     private GetBoardByIdService getBoardByIdService;
     private BoardModel mockBoardModel;
     private Long id;
-    private BoardModel response;
 
     @BeforeEach
     void setUp() {
@@ -37,7 +36,7 @@ class GetBoardByIdServiceTest {
         Mockito.when(boardRepositoryMock.getBoardById(id)).thenReturn(mockBoardModel);
 
         // Act
-        response = getBoardByIdService.execute(id);
+        BoardModel response = getBoardByIdService.execute(id);
 
         // Assert
         assertNotNull(response);
