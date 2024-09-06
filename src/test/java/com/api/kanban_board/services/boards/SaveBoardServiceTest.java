@@ -15,7 +15,6 @@ class SaveBoardServiceTest {
     private BoardRepository boardRepositoryMock;
     private SaveBoardService saveBoardService;
     private BoardModel mockBoardModel;
-    private BoardModel response;
 
     @BeforeEach
     void setUp() {
@@ -33,17 +32,18 @@ class SaveBoardServiceTest {
         Mockito.when(boardRepositoryMock.save(Mockito.any())).thenReturn(mockBoardModel);
 
         // Act
-        response = saveBoardService.execute(mockBoardModel);
+        BoardModel response = saveBoardService.execute(mockBoardModel);
 
         // Assert
         assertNotNull(response);
-        assertEquals(1L, response.getId());
-        assertEquals("Primer tablero", response.getTitle());
-        assertEquals("Primer tablero", response.getDescription());
-        assertEquals("001", response.getStatus().getCode());
+        assertEquals(mockBoardModel.getId(), response.getId());
+        assertEquals(mockBoardModel.getTitle(), response.getTitle());
+        assertEquals(mockBoardModel.getDescription(), response.getDescription());
+        assertEquals(mockBoardModel.getStatus().getCode(), response.getStatus().getCode());
     }
 
     @AfterEach
     void tearDown() {
+        Mockito.reset(boardRepositoryMock);
     }
 }
