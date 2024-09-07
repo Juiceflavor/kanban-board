@@ -13,16 +13,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class GetTaskByIdServiceTest {
 
-    private TaskRepository taskRepository;
+    private TaskRepository taskRepositoryMock;
     private GetTaskByIdService getTaskByIdService;
     private TaskModel mockTaskModel;
     private Long id;
 
     @BeforeEach
     void setUp() {
-        taskRepository = Mockito.mock(TaskRepository.class);
+        taskRepositoryMock = Mockito.mock(TaskRepository.class);
 
-        getTaskByIdService = new GetTaskByIdService(taskRepository);
+        getTaskByIdService = new GetTaskByIdService(taskRepositoryMock);
 
         MockUtils mockUtils = new MockUtils();
         mockTaskModel = mockUtils.makeTaskModelMock();
@@ -32,7 +32,7 @@ class GetTaskByIdServiceTest {
     @Test
     void shouldReturnTaskWhenValidIdIsProvided() {
         // Arrange
-        Mockito.when(taskRepository.getTaskById(id)).thenReturn(mockTaskModel);
+        Mockito.when(taskRepositoryMock.getTaskById(id)).thenReturn(mockTaskModel);
 
         // Act
         TaskModel response = getTaskByIdService.execute(id);

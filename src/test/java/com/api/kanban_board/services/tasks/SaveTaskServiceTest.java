@@ -12,15 +12,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SaveTaskServiceTest {
 
-    private TaskRepository taskRepository;
+    private TaskRepository taskRepositoryMock;
     private SaveTaskService saveTaskService;
     private TaskModel mockTaskModel;
 
     @BeforeEach
     void setUp() {
-        taskRepository = Mockito.mock(TaskRepository.class);
+        taskRepositoryMock = Mockito.mock(TaskRepository.class);
 
-        saveTaskService = new SaveTaskService(taskRepository);
+        saveTaskService = new SaveTaskService(taskRepositoryMock);
 
         MockUtils mockUtils = new MockUtils();
         mockTaskModel = mockUtils.makeTaskModelMock();
@@ -29,7 +29,7 @@ class SaveTaskServiceTest {
     @Test
     void shouldSaveTaskWhenAllFieldsAreValid() {
         // Arrange
-        Mockito.when(taskRepository.save(Mockito.any())).thenReturn(mockTaskModel);
+        Mockito.when(taskRepositoryMock.save(Mockito.any())).thenReturn(mockTaskModel);
 
         // Act
         TaskModel response = saveTaskService.execute(mockTaskModel);
@@ -46,6 +46,6 @@ class SaveTaskServiceTest {
 
     @AfterEach
     void tearDown() {
-        Mockito.reset(taskRepository);
+        Mockito.reset(taskRepositoryMock);
     }
 }

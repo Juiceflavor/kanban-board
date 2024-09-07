@@ -8,14 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GetAllTasksByBoardIdServiceTest {
 
-    private TaskRepository taskRepository;
+    private TaskRepository taskRepositoryMock;
     private GetAllTasksByBoardIdService getAllTasksByBoardIdService;
     private List<TaskModel> mockTaskList;
     private Long board_id;
@@ -23,8 +22,8 @@ class GetAllTasksByBoardIdServiceTest {
 
     @BeforeEach
     void setUp() {
-        taskRepository = Mockito.mock(TaskRepository.class);
-        getAllTasksByBoardIdService = new GetAllTasksByBoardIdService(taskRepository);
+        taskRepositoryMock = Mockito.mock(TaskRepository.class);
+        getAllTasksByBoardIdService = new GetAllTasksByBoardIdService(taskRepositoryMock);
 
         MockUtils mockUtils = new MockUtils();
         mockTaskList = List.of(mockUtils.makeTaskModelMock());
@@ -34,7 +33,7 @@ class GetAllTasksByBoardIdServiceTest {
     @Test
     void shouldReturnAllTasksWhenValidBoardIdIsProvided() {
         // Arrange
-        Mockito.when(taskRepository.getAllTaskByBoardId(board_id)).thenReturn(mockTaskList);
+        Mockito.when(taskRepositoryMock.getAllTaskByBoardId(board_id)).thenReturn(mockTaskList);
 
         // Act
         List<TaskModel> response = getAllTasksByBoardIdService.execute(board_id);
