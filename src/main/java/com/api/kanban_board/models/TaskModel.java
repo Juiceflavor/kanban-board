@@ -1,6 +1,6 @@
 package com.api.kanban_board.models;
 
-import com.api.kanban_board.exceptions.ConflictException;
+import com.api.kanban_board.exceptions.WarningException;
 import com.api.kanban_board.models.utils.IntegerUtils;
 import com.api.kanban_board.models.utils.StringUtils;
 import lombok.Getter;
@@ -10,13 +10,14 @@ import lombok.ToString;
 @ToString
 public class TaskModel {
     private Integer id;
-    private String name;
+    private final String name;
     private StatusModel status;
-    private String description;
-    private Integer parentId;
-    private Integer boardId;
+    private final String description;
+    private final Integer parentId;
+    private final Integer boardId;
 
-    private TaskModel(Integer id, String name, String statusCode, String description, Integer parentId, Integer boardId) {
+    private TaskModel(Integer id, String name, String statusCode, String description, Integer parentId,
+                      Integer boardId) {
         validateBoard_id(boardId);
         validateDescription(description);
         validateStatus(statusCode);
@@ -36,12 +37,21 @@ public class TaskModel {
         validateDescription(description);
         validateParent_id(parentId);
         validateBoard_id(boardId);
-        
+
         this.name = name;
         this.status = StatusModel.of(statusCode);
         this.description = description;
         this.parentId = parentId;
         this.boardId = boardId;
+    }
+
+    public static TaskModel create(String name, String description, Integer parentId, Integer boardId) {
+        return new TaskModel(name, StatusModel.TO_DO.getCode(), description, parentId, boardId);
+    }
+
+    public static TaskModel fromData(Integer id, String name, String status, String description, Integer parentId,
+                                     Integer boardId) {
+        return new TaskModel(id, name, status, description, parentId, boardId);
     }
 
     private void validateId(Integer id) {
@@ -65,18 +75,12 @@ public class TaskModel {
     }
 
     private void validateParent_id(Integer parentId) {
-        IntegerUtils.validateNullAndNegative("parentId", parentId);
+        if(parentId != null && parentId <= 0) {
+            throw new WarningException("Parent id must be greater than zero");
+        }
     }
 
-    public static TaskModel create(String name, String description, Integer parentId, Integer boardId) {
-        return new TaskModel(name, StatusModel.TO_DO.getCode(), description, parentId, boardId);
-    }
-
-    public static TaskModel fromData(Integer id, String name, String status, String description, Integer parentId, Integer boardId) {
-        return new TaskModel(id, name, status, description, parentId, boardId);
-    }
-
-    public TaskModel transition(){
+    public TaskModel transition() {
         this.status = this.status.transition();
 
         return fromData(this.id, this.name, this.status.getCode(), this.description, this.parentId, this.boardId);

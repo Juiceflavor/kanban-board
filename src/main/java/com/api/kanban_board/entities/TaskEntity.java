@@ -19,6 +19,8 @@ public class TaskEntity {
     private String name;
     private String status;
     private String description;
+    @Column(name = "parentId")
     private Integer parentId;
+    @Column(name = "boardId")
     private Integer boardId;
 }
