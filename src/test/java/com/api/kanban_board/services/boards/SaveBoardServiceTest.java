@@ -22,8 +22,7 @@ class SaveBoardServiceTest {
 
         saveBoardService = new SaveBoardService(boardRepositoryMock);
 
-        MockUtils mockUtils = new MockUtils();
-        mockBoardModel = mockUtils.makeBoardModelMock();
+        mockBoardModel = MockUtils.makeBoardModelMock();
     }
 
     @Test

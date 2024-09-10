@@ -16,7 +16,7 @@ class GetBoardByIdServiceTest {
     private BoardRepository boardRepositoryMock;
     private GetBoardByIdService getBoardByIdService;
     private BoardModel mockBoardModel;
-    private Long id;
+    private Integer id;
 
     @BeforeEach
     void setUp() {
@@ -24,8 +24,7 @@ class GetBoardByIdServiceTest {
 
         getBoardByIdService = new GetBoardByIdService(boardRepositoryMock);
 
-        MockUtils mockUtils = new MockUtils();
-        mockBoardModel = mockUtils.makeBoardModelMock();
+        mockBoardModel = MockUtils.makeBoardModelMock();
 
         id = mockBoardModel.getId();
     }

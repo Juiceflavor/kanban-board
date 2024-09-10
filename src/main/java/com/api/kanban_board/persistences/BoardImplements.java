@@ -6,6 +6,7 @@ import com.api.kanban_board.persistences.adapters.BoardJpaRepositoryAdapter;
 import com.api.kanban_board.repositories.BoardRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.api.kanban_board.mappers.BoardMapper.*;
@@ -25,13 +26,19 @@ public class BoardImplements implements BoardRepository {
     }
 
     @Override
-    public BoardModel getBoardById(Long id) {
+    public BoardModel getBoardById(Integer id) {
         return toModel(boardJpaRepositoryAdapter.findById(id).get());
     }
 
     @Override
     public List<BoardModel> getAllBoards() {
         List<BoardEntity> boardEntities = boardJpaRepositoryAdapter.findAll();
+        return toModelList(boardEntities);
+    }
+
+    @Override
+    public List<BoardModel> getBoardsByTitle(String title) {
+        List<BoardEntity> boardEntities = boardJpaRepositoryAdapter.getBoardsByTitle(title);
         return toModelList(boardEntities);
     }
 }

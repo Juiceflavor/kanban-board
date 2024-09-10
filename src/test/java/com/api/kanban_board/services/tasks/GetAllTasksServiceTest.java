@@ -24,8 +24,8 @@ class GetAllTasksServiceTest {
 
         getAllTasksService = new GetAllTasksService(taskRepositoryMock);
 
-        MockUtils mockUtils = new MockUtils();
-        mockTaskList = List.of(mockUtils.makeTaskModelMock());
+        
+        mockTaskList = List.of(MockUtils.makeTaskModelMock());
     }
 
     @Test
@@ -42,8 +42,8 @@ class GetAllTasksServiceTest {
         assertEquals(mockTaskList.get(0).getName(), response.get(0).getName());
         assertEquals(mockTaskList.get(0).getDescription(), response.get(0).getDescription());
         assertEquals(mockTaskList.get(0).getStatus().getCode(), response.get(0).getStatus().getCode());
-        assertEquals(mockTaskList.get(0).getParent_id(), response.get(0).getParent_id());
-        assertEquals(mockTaskList.get(0).getBoard_id(), response.get(0).getBoard_id());
+        assertEquals(mockTaskList.get(0).getParentId(), response.get(0).getParentId());
+        assertEquals(mockTaskList.get(0).getBoardId(), response.get(0).getBoardId());
     }
 
     @AfterEach

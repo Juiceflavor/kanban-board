@@ -1,9 +1,8 @@
-package com.api.kanban_board.persistences.tasks;
+package com.api.kanban_board.persistences;
 
 import com.api.kanban_board.MockUtils;
 import com.api.kanban_board.entities.TaskEntity;
 import com.api.kanban_board.models.TaskModel;
-import com.api.kanban_board.persistences.TaskImplements;
 import com.api.kanban_board.persistences.adapters.TaskJpaRepositoryAdapter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,16 +20,16 @@ class TaskImplementsGetByIdTest {
     private TaskImplements taskImplements;
     private TaskEntity taskEntityMock;
     private TaskModel taskModelMock;
-    private Long id;
+    private Integer id;
 
     @BeforeEach
     void setUp() {
         taskJpaRepositoryAdapterMock = Mockito.mock(TaskJpaRepositoryAdapter.class);
         taskImplements = new TaskImplements(taskJpaRepositoryAdapterMock);
 
-        MockUtils mockUtils = new MockUtils();
-        taskEntityMock = mockUtils.makeTaskEntityMock();
-        taskModelMock = mockUtils.makeTaskModelMock();
+        
+        taskEntityMock = MockUtils.makeTaskEntityMock();
+        taskModelMock = MockUtils.makeTaskModelMock();
         id = taskModelMock.getId();
     }
 
@@ -47,8 +46,8 @@ class TaskImplementsGetByIdTest {
         assertEquals(taskModelMock.getId(), response.getId());
         assertEquals(taskModelMock.getName(), response.getName());
         assertEquals(taskModelMock.getDescription(), response.getDescription());
-        assertEquals(taskModelMock.getParent_id(), response.getParent_id());
-        assertEquals(taskModelMock.getBoard_id(), response.getBoard_id());
+        assertEquals(taskModelMock.getParentId(), response.getParentId());
+        assertEquals(taskModelMock.getBoardId(), response.getBoardId());
         assertEquals(taskModelMock.getStatus().getCode(), response.getStatus().getCode());
     }
 

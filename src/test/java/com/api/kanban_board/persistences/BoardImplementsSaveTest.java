@@ -1,9 +1,8 @@
-package com.api.kanban_board.persistences.boards;
+package com.api.kanban_board.persistences;
 
 import com.api.kanban_board.MockUtils;
 import com.api.kanban_board.entities.BoardEntity;
 import com.api.kanban_board.models.BoardModel;
-import com.api.kanban_board.persistences.BoardImplements;
 import com.api.kanban_board.persistences.adapters.BoardJpaRepositoryAdapter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,9 +23,9 @@ class BoardImplementsSaveTest {
         boardJpaRepositoryAdapterMock = Mockito.mock(BoardJpaRepositoryAdapter.class);
         boardImplements = new BoardImplements(boardJpaRepositoryAdapterMock);
 
-        MockUtils mockUtils = new MockUtils();
-        boardModelMock = mockUtils.makeBoardModelMock();
-        boardEntityMock = mockUtils.makeBoardEntityMock();
+        
+        boardModelMock = MockUtils.makeBoardModelMock();
+        boardEntityMock = MockUtils.makeBoardEntityMock();
     }
 
     @Test

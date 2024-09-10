@@ -24,8 +24,7 @@ class GetAllBoardsServiceTest {
 
         getAllBoardsService = new GetAllBoardsService(boardRepositoryMock);
 
-        MockUtils mockUtils = new MockUtils();
-        mockBoardList = List.of(mockUtils.makeBoardModelMock());
+        mockBoardList = List.of(MockUtils.makeBoardModelMock());
     }
 
     @Test

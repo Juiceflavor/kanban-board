@@ -13,7 +13,7 @@ public class GetTaskByIdService {
         this.taskRepository = taskRepository;
     }
 
-    public TaskModel execute(Long id){
+    public TaskModel execute(Integer id){
         return taskRepository.getTaskById(id);
     }
 }

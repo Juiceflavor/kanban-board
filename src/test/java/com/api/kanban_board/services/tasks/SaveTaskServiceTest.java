@@ -22,8 +22,7 @@ class SaveTaskServiceTest {
 
         saveTaskService = new SaveTaskService(taskRepositoryMock);
 
-        MockUtils mockUtils = new MockUtils();
-        mockTaskModel = mockUtils.makeTaskModelMock();
+        mockTaskModel = MockUtils.makeTaskModelMock();
     }
 
     @Test
@@ -40,8 +39,8 @@ class SaveTaskServiceTest {
         assertEquals(mockTaskModel.getName(), response.getName());
         assertEquals(mockTaskModel.getDescription(), response.getDescription());
         assertEquals(mockTaskModel.getStatus(), response.getStatus());
-        assertEquals(mockTaskModel.getBoard_id(), response.getBoard_id());
-        assertEquals(mockTaskModel.getParent_id(), response.getParent_id());
+        assertEquals(mockTaskModel.getBoardId(), response.getBoardId());
+        assertEquals(mockTaskModel.getParentId(), response.getParentId());
     }
 
     @AfterEach

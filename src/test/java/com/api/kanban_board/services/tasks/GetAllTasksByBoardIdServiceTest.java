@@ -17,7 +17,7 @@ class GetAllTasksByBoardIdServiceTest {
     private TaskRepository taskRepositoryMock;
     private GetAllTasksByBoardIdService getAllTasksByBoardIdService;
     private List<TaskModel> mockTaskList;
-    private Long board_id;
+    private Integer boardId;
 
 
     @BeforeEach
@@ -25,18 +25,17 @@ class GetAllTasksByBoardIdServiceTest {
         taskRepositoryMock = Mockito.mock(TaskRepository.class);
         getAllTasksByBoardIdService = new GetAllTasksByBoardIdService(taskRepositoryMock);
 
-        MockUtils mockUtils = new MockUtils();
-        mockTaskList = List.of(mockUtils.makeTaskModelMock());
-        board_id = mockTaskList.get(0).getBoard_id();
+        mockTaskList = List.of(MockUtils.makeTaskModelMock());
+        boardId = mockTaskList.get(0).getBoardId();
     }
 
     @Test
     void shouldReturnAllTasksWhenValidBoardIdIsProvided() {
         // Arrange
-        Mockito.when(taskRepositoryMock.getAllTaskByBoardId(board_id)).thenReturn(mockTaskList);
+        Mockito.when(taskRepositoryMock.getAllTaskByBoardId(boardId)).thenReturn(mockTaskList);
 
         // Act
-        List<TaskModel> response = getAllTasksByBoardIdService.execute(board_id);
+        List<TaskModel> response = getAllTasksByBoardIdService.execute(boardId);
 
         // Assert
         assertEquals(1, response.size());
@@ -44,8 +43,8 @@ class GetAllTasksByBoardIdServiceTest {
         assertEquals(mockTaskList.get(0).getName(), response.get(0).getName());
         assertEquals(mockTaskList.get(0).getDescription(), response.get(0).getDescription());
         assertEquals(mockTaskList.get(0).getStatus().getCode(), response.get(0).getStatus().getCode());
-        assertEquals(mockTaskList.get(0).getParent_id(), response.get(0).getParent_id());
-        assertEquals(mockTaskList.get(0).getBoard_id(), response.get(0).getBoard_id());
+        assertEquals(mockTaskList.get(0).getParentId(), response.get(0).getParentId());
+        assertEquals(mockTaskList.get(0).getBoardId(), response.get(0).getBoardId());
     }
 
     @AfterEach

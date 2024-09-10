@@ -16,7 +16,7 @@ class GetTaskByIdServiceTest {
     private TaskRepository taskRepositoryMock;
     private GetTaskByIdService getTaskByIdService;
     private TaskModel mockTaskModel;
-    private Long id;
+    private Integer id;
 
     @BeforeEach
     void setUp() {
@@ -24,8 +24,8 @@ class GetTaskByIdServiceTest {
 
         getTaskByIdService = new GetTaskByIdService(taskRepositoryMock);
 
-        MockUtils mockUtils = new MockUtils();
-        mockTaskModel = mockUtils.makeTaskModelMock();
+        
+        mockTaskModel = MockUtils.makeTaskModelMock();
         id = mockTaskModel.getId();
     }
 
@@ -44,8 +44,8 @@ class GetTaskByIdServiceTest {
         assertEquals(mockTaskModel.getName(), response.getName());
         assertEquals(mockTaskModel.getDescription(), response.getDescription());
         assertEquals(mockTaskModel.getStatus().getCode(), response.getStatus().getCode());
-        assertEquals(mockTaskModel.getParent_id(), response.getParent_id());
-        assertEquals(mockTaskModel.getBoard_id(), response.getBoard_id());
+        assertEquals(mockTaskModel.getParentId(), response.getParentId());
+        assertEquals(mockTaskModel.getBoardId(), response.getBoardId());
     }
 
     @AfterEach
