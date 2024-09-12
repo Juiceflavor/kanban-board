@@ -1,4 +1,7 @@
 package com.api.kanban_board.models;
+
+import com.api.kanban_board.exceptions.CustomException;
+import com.api.kanban_board.exceptions.ExceptionDetails;
 import com.api.kanban_board.exceptions.WarningException;
 import lombok.Getter;
 
@@ -25,16 +28,24 @@ public enum StatusModel {
                 return statusModel;
             }
         }
-        throw new WarningException("The code " + statusCode + " is not a valid status model");
+        throw new CustomException("There were a error with the status code",
+                new ExceptionDetails("The code " + statusCode + " is not a valid status model",
+                        "Error"));
     }
 
     public StatusModel transition() {
         StatusModel transitioned = null;
         switch (this) {
-            case INACTIVE -> throw new WarningException("Cannot transition from " + this.getName());
+            case INACTIVE ->
+                    throw new CustomException("Cannot transition from " + this.getName(),
+                            new ExceptionDetails("Cannot transition from " + this.getName(),
+                                    "Warning"));
             case TO_DO -> transitioned = IN_PROGRESS;
             case IN_PROGRESS -> transitioned = DONE;
-            case DONE -> throw new WarningException("The " + this.getName() + " has finished");
+            case DONE ->
+                    throw new CustomException("The " + this.getName() + " has finished",
+                            new ExceptionDetails("The " + this.getName() + " has finished",
+                                    "Warning"));
         }
 
         return transitioned;
@@ -42,17 +53,23 @@ public enum StatusModel {
 
     public StatusModel inactive() {
         if (this.equals(StatusModel.INACTIVE)) {
-            throw new WarningException("It cannot be inactivated, already in this state");
+            throw new CustomException("It cannot be inactivated, already in this state",
+                    new ExceptionDetails("It cannot be inactivated, already in this state",
+                            "Warning"));
         }
         if (this.equals(StatusModel.DONE)) {
-            throw new WarningException("It cannot be inactivated, it was already done");
+            throw new CustomException("It cannot be inactivated, it was already done",
+                    new ExceptionDetails("It cannot be inactivated, it was already done",
+                            "Warning"));
         }
         return StatusModel.INACTIVE;
     }
 
     public StatusModel active() {
         if (!this.equals(StatusModel.INACTIVE)) {
-            throw new WarningException("It cannot be activated, isn't in the status Inactive");
+            throw new CustomException("It cannot be activated, isn't in the status Inactive",
+                    new ExceptionDetails("It cannot be activated, isn't in the status Inactive",
+                            "Warning"));
         }
         return StatusModel.TO_DO;
     }

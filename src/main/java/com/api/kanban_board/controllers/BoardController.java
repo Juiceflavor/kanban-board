@@ -22,9 +22,7 @@ import static com.api.kanban_board.mappers.BoardMapper.*;
 public class BoardController {
 
     private final SaveBoardService saveBoardService;
-
     private final GetBoardByIdService getBoardByIdService;
-
     private final GetAllBoardsService getAllBoardsService;
 
     public BoardController(SaveBoardService saveBoardService,
