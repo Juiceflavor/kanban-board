@@ -10,6 +10,5 @@ import java.util.List;
 @Repository
 public interface BoardJpaRepositoryAdapter extends JpaRepository<BoardEntity, Integer> {
 
-    @Query(value = "SELECT * FROM BOARDS b WHERE b.TITLE  = ?1", nativeQuery = true)
-    public List<BoardEntity> getBoardsByTitle(String title);
+    public List<BoardEntity> findByTitle(String title);
 }

@@ -35,7 +35,7 @@ class TaskImplementsGetAllByBoardIdTest {
     @Test
     void shouldReturnAllTasksForGivenBoardId() {
         // Arrange
-        Mockito.when(taskJpaRepositoryAdapterMock.getTasksByBoardId(id)).thenReturn(taskEntityListMock);
+        Mockito.when(taskJpaRepositoryAdapterMock.findByBoardIdAndParentIdIsNull(id)).thenReturn(taskEntityListMock);
 
         // Act
         List<TaskModel> response = taskImplements.getAllTaskByBoardId(id);

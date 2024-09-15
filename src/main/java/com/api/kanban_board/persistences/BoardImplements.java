@@ -38,7 +38,7 @@ public class BoardImplements implements BoardRepository {
 
     @Override
     public List<BoardModel> getBoardsByTitle(String title) {
-        List<BoardEntity> boardEntities = boardJpaRepositoryAdapter.getBoardsByTitle(title);
+        List<BoardEntity> boardEntities = boardJpaRepositoryAdapter.findByTitle(title);
         return toModelList(boardEntities);
     }
 }

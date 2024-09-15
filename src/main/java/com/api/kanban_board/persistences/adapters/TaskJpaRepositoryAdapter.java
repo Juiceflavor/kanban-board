@@ -10,9 +10,8 @@ import java.util.List;
 @Repository
 public interface TaskJpaRepositoryAdapter extends JpaRepository<TaskEntity, Integer> {
 
-    @Query(value = "SELECT * FROM TASKS t WHERE t.BOARDID  = ?1 AND t.PARENTID IS NULL", nativeQuery = true)
-    public List<TaskEntity> getTasksByBoardId(Integer boardId);
+    public List<TaskEntity> findByBoardIdAndParentIdIsNull(Integer boardId);
 
-    @Query(value = "SELECT * FROM TASKS t WHERE t.NAME  = ?1", nativeQuery = true)
-    public List<TaskEntity> getTasksByName(String name);
+    public List<TaskEntity> findByName(String name);
+
 }
