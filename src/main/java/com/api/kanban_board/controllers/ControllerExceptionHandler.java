@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class BaseController {
+public class ControllerExceptionHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BaseController.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(ControllerExceptionHandler.class.getName());
 
     @ExceptionHandler(value = {CustomException.class})
     public ResponseEntity<ExceptionDetails> handleException(CustomException exception) {
