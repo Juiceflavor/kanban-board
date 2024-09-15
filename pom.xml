@@ -73,7 +73,8 @@
                         <configuration>
                             <excludes>
                                 <exclude>com/api/kanban_board/mappers/*</exclude>
-                                <exclude>com/api/kanban_board/models/*</exclude>
+                                <exclude>com/api/kanban_board/dtos/*</exclude>
+                                <exclude>com/api/kanban_board/entities/*</exclude>
                                 <exclude>com/api/kanban_board/exceptions/*/</exclude>
                             </excludes>
                         </configuration>

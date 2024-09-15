@@ -16,7 +16,6 @@ public class SaveBoardService {
 
     public BoardModel execute(BoardModel board){
         BoardModel boardModel = null;
-        boardRepository.getBoardsByTitle(board.getTitle());
         if(boardRepository.getBoardsByTitle(board.getTitle()).isEmpty()){
             boardModel = boardRepository.save(board);
         } else{

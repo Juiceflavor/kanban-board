@@ -53,7 +53,7 @@ public class TaskController {
         return new ResponseEntity<>(toDto(taskModel), HttpStatus.OK);
     }
 
-    @GetMapping("boardId/{boardId}")
+    @GetMapping("boards/{boardId}")
     public ResponseEntity<List<TaskDto>> getAllTasksByBoardId(@PathVariable("boardId") Integer boardId) {
         List<TaskModel> tasks = getAllTasksByBoardIdService.execute(boardId);
         return new ResponseEntity<>(toDtoList(tasks), HttpStatus.OK);
