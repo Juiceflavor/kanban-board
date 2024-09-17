@@ -13,7 +13,7 @@ public class GetBoardByIdService {
         this.boardRepository = boardRepository;
     }
 
-    public BoardModel execute(Long id){
+    public BoardModel execute(Integer id){
         return boardRepository.getBoardById(id);
     }
 }

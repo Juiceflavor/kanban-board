@@ -11,17 +11,12 @@ import org.mockito.Mockito;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class GetAllBoardsServiceTest {
 
     private BoardRepository boardRepositoryMock;
-
     private GetAllBoardsService getAllBoardsService;
-
     private List<BoardModel> mockBoardList;
-
-    private MockUtils mockUtils;
 
     @BeforeEach
     void setUp() {
@@ -29,8 +24,7 @@ class GetAllBoardsServiceTest {
 
         getAllBoardsService = new GetAllBoardsService(boardRepositoryMock);
 
-        mockUtils = new MockUtils();
-        mockBoardList = List.of(mockUtils.makeBoardModelMock());
+        mockBoardList = List.of(MockUtils.makeBoardModelMock());
     }
 
     @Test
@@ -39,15 +33,14 @@ class GetAllBoardsServiceTest {
         Mockito.when(boardRepositoryMock.getAllBoards()).thenReturn(mockBoardList);
 
         // Act
-        List<BoardModel> result = getAllBoardsService.execute();
+        List<BoardModel> response = getAllBoardsService.execute();
 
         // Assert
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(1L, result.get(0).getId());
-        assertEquals("Primer tablero", result.get(0).getTitle());
-        assertEquals("Primer tablero", result.get(0).getDescription());
-        assertEquals("001", result.get(0).getStatus().getCode());
+        assertEquals(1, response.size());
+        assertEquals(mockBoardList.get(0).getId(), response.get(0).getId());
+        assertEquals(mockBoardList.get(0).getTitle(), response.get(0).getTitle());
+        assertEquals(mockBoardList.get(0).getDescription(), response.get(0).getDescription());
+        assertEquals(mockBoardList.get(0).getStatus().getCode(), response.get(0).getStatus().getCode());
     }
 
     @AfterEach

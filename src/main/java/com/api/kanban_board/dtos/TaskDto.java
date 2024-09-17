@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 public class TaskDto {
-    private Long id;
+    private Integer id;
     private String name;
     private String statusCode;
     private String description;
-    private Long parent_id;
-    private Long board_id;
+    private Integer parentId;
+    private Integer boardId;
 }

@@ -7,7 +7,9 @@ import java.util.List;
 public interface BoardRepository {
     BoardModel save(BoardModel boardModel);
 
-    BoardModel getBoardById(Long id);
+    BoardModel getBoardById(Integer id);
 
     List<BoardModel> getAllBoards();
+
+    List<BoardModel> getBoardsByTitle(String title);
 }

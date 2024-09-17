@@ -25,8 +25,14 @@ public class TaskImplements implements TaskRepository {
     }
 
     @Override
-    public TaskModel getTaskById(Long id) {
+    public TaskModel getTaskById(Integer id) {
         return toModel(taskJpaRepositoryAdapter.findById(id).get());
+    }
+
+    @Override
+    public List<TaskModel> getTasksByName(String name) {
+        List<TaskEntity> taskEntities = taskJpaRepositoryAdapter.findByName(name);
+        return toModelList(taskEntities);
     }
 
     @Override
@@ -36,8 +42,8 @@ public class TaskImplements implements TaskRepository {
     }
 
     @Override
-    public List<TaskModel> getAllTaskByBoardId(Long board_id) {
-        List<TaskEntity> tasksEntities = taskJpaRepositoryAdapter.getTasksByBoardId(board_id);
+    public List<TaskModel> getAllTaskByBoardId(Integer boardId) {
+        List<TaskEntity> tasksEntities = taskJpaRepositoryAdapter.findByBoardIdAndParentIdIsNull(boardId);
         return toModelList(tasksEntities);
     }
 }

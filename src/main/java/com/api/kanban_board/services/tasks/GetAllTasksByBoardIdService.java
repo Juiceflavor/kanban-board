@@ -15,7 +15,7 @@ public class GetAllTasksByBoardIdService {
         this.taskRepository = taskRepository;
     }
 
-    public List<TaskModel> execute(Long board_id){
-        return taskRepository.getAllTaskByBoardId(board_id);
+    public List<TaskModel> execute(Integer boardId){
+        return taskRepository.getAllTaskByBoardId(boardId);
     }
 }

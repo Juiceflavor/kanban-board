@@ -15,10 +15,12 @@ import lombok.NoArgsConstructor;
 public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
     private String status;
     private String description;
-    private Long parent_id;
-    private Long board_id;
+    @Column(name = "parentId")
+    private Integer parentId;
+    @Column(name = "boardId")
+    private Integer boardId;
 }

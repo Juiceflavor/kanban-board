@@ -1,17 +1,19 @@
 package com.api.kanban_board.models;
 import com.api.kanban_board.exceptions.ConflictException;
+import com.api.kanban_board.models.utils.IntegerUtils;
+import com.api.kanban_board.models.utils.StringUtils;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
 @ToString
 public class BoardModel {
-    private Long id;
+    private Integer id;
     private String title;
     private String description;
     private StatusModel status;
 
-    private BoardModel(Long id, String title, String description, String statusCode)  {
+    private BoardModel(Integer id, String title, String description, String statusCode)  {
         validateId(id);
         validateTitle(title);
         validateDescription(description);
@@ -33,35 +35,27 @@ public class BoardModel {
         this.status = StatusModel.of(statusCode);
     }
 
-    private void validateId(Long id)  {
-        if (id == null) {
-            throw new ConflictException("Error the id is null or empty");
-        }
+    private void validateId(Integer id)  {
+        IntegerUtils.validateNullAndNegative("id", id);
     }
 
     private void validateStatus(String status)  {
-        if (status == null || status.isEmpty()) {
-            throw new ConflictException("Error the status is null or empty");
-        }
+        StringUtils.validateNullAndEmpty("status", status);
     }
 
     private void validateDescription(String description)  {
-        if (description == null || description.isEmpty()) {
-            throw new ConflictException("Error the description is null or empty");
-        }
+        StringUtils.validateNullAndEmpty("description", description);
     }
 
     private void validateTitle(String title)  {
-        if (title == null || title.isEmpty()) {
-            throw new ConflictException("Error the title is null or empty");
-        }
+        StringUtils.validateNullAndEmpty("title", title);
     }
 
     public static BoardModel create(String title, String description)  {
         return new BoardModel(title, description, StatusModel.TO_DO.getCode());
     }
 
-    public static BoardModel fromData(long id, String title, String description, String status)  {
+    public static BoardModel fromData(Integer id, String title, String description, String status)  {
         return new BoardModel(id, title, description, status);
     }
 

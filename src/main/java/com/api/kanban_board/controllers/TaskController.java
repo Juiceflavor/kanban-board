@@ -48,14 +48,14 @@ public class TaskController {
         return new ResponseEntity<>(toDtoList(tasks), HttpStatus.OK);
     }
     @GetMapping("{id}")
-    public ResponseEntity<?> getTaskById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getTaskById(@PathVariable("id") Integer id) {
         TaskModel taskModel = getTaskByIdService.execute(id);
         return new ResponseEntity<>(toDto(taskModel), HttpStatus.OK);
     }
 
-    @GetMapping("board_id/{board_id}")
-    public ResponseEntity<List<TaskDto>> getAllTasksByBoardId(@PathVariable("board_id") Long board_id) {
-        List<TaskModel> tasks = getAllTasksByBoardIdService.execute(board_id);
+    @GetMapping("boards/{boardId}")
+    public ResponseEntity<List<TaskDto>> getAllTasksByBoardId(@PathVariable("boardId") Integer boardId) {
+        List<TaskModel> tasks = getAllTasksByBoardIdService.execute(boardId);
         return new ResponseEntity<>(toDtoList(tasks), HttpStatus.OK);
     }
 }
