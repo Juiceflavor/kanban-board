@@ -1,55 +1,89 @@
 package com.api.kanban_board.controllers;
-import com.api.kanban_board.dtos.BoardDto;
-import com.api.kanban_board.models.BoardModel;
-import java.util.List;
 
-import com.api.kanban_board.services.boards.GetAllBoardsService;
-import com.api.kanban_board.services.boards.GetBoardByIdService;
-import com.api.kanban_board.services.boards.SaveBoardService;
+import com.api.kanban_board.dtos.BoardDto;
+import com.api.kanban_board.dtos.TaskDto;
+import com.api.kanban_board.models.BoardModel;
+import com.api.kanban_board.models.TaskModel;
+import com.api.kanban_board.services.boards.*;
+import com.api.kanban_board.services.tasks.GetAllTasksByBoardIdService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static com.api.kanban_board.mappers.BoardMapper.*;
+import java.util.List;
+
+import static com.api.kanban_board.mappers.BoardMapper.toDto;
+import static com.api.kanban_board.mappers.BoardMapper.toDtoList;
+import static com.api.kanban_board.mappers.BoardMapper.toModel;
+import static com.api.kanban_board.mappers.TaskMapper.toDtoList;
 
 @RestController
 @RequestMapping("api/boards")
 public class BoardController {
 
     private final SaveBoardService saveBoardService;
-
     private final GetBoardByIdService getBoardByIdService;
-
     private final GetAllBoardsService getAllBoardsService;
+    private final GetAllTasksByBoardIdService getAllTasksByBoardIdService;
+    private final TransitionBoardService transitionBoardService;
+    private final InactiveBoardService inactiveBoardService;
+    private final ActiveBoardService activeBoardService;
 
     public BoardController(SaveBoardService saveBoardService,
                            GetBoardByIdService getBoardByIdService,
-                           GetAllBoardsService getAllBoardsService) {
+                           GetAllBoardsService getAllBoardsService,
+                           GetAllTasksByBoardIdService getAllTasksByBoardIdService,
+                           TransitionBoardService transitionBoardService,
+                           InactiveBoardService inactiveBoardService,
+                           ActiveBoardService activeBoardService) {
         this.saveBoardService = saveBoardService;
         this.getBoardByIdService = getBoardByIdService;
         this.getAllBoardsService = getAllBoardsService;
+        this.getAllTasksByBoardIdService = getAllTasksByBoardIdService;
+        this.transitionBoardService = transitionBoardService;
+        this.inactiveBoardService = inactiveBoardService;
+        this.activeBoardService = activeBoardService;
     }
 
     @PostMapping
-    public ResponseEntity<?> saveBoard(@RequestBody BoardDto boardDto) {
+    public ResponseEntity<BoardDto> saveBoard(@RequestBody BoardDto boardDto) {
         BoardModel savedBoardModel = saveBoardService.execute(toModel(boardDto));
-        return new ResponseEntity<>(toDto(savedBoardModel), HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(toDto(savedBoardModel));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getBoardById(@PathVariable("id") Integer id) {
+    public ResponseEntity<BoardDto> getBoardById(@PathVariable("id") Integer id) {
         BoardModel boardModel = getBoardByIdService.execute(id);
-        return new ResponseEntity<>(toDto(boardModel), HttpStatus.OK);
+        return ResponseEntity.ok(toDto(boardModel));
     }
 
     @GetMapping
     public ResponseEntity<List<BoardDto>> getAllBoards() {
         List<BoardModel> boards = getAllBoardsService.execute();
-        return new ResponseEntity<>(toDtoList(boards), HttpStatus.OK);
+        return ResponseEntity.ok(toDtoList(boards));
+    }
+
+    @GetMapping("/{boardId}/tasks")
+    public ResponseEntity<List<TaskDto>> getAllTasksByBoardId(@PathVariable("boardId") Integer boardId) {
+        List<TaskModel> tasks = getAllTasksByBoardIdService.execute(boardId);
+        return ResponseEntity.ok(toDtoList(tasks));
+    }
+
+    @PostMapping("/{id}/transition")
+    public ResponseEntity<BoardDto> transitionBoard(@PathVariable("id") Integer id) {
+        BoardModel boardModel = transitionBoardService.execute(id);
+        return ResponseEntity.ok(toDto(boardModel));
+    }
+
+    @PostMapping("/{id}/inactive")
+    public ResponseEntity<BoardDto> inactiveBoard(@PathVariable("id") Integer id) {
+        BoardModel boardModel = inactiveBoardService.execute(id);
+        return ResponseEntity.ok(toDto(boardModel));
+    }
+
+    @PostMapping("/{id}/active")
+    public ResponseEntity<BoardDto> activeBoard(@PathVariable("id") Integer id) {
+        BoardModel boardModel = activeBoardService.execute(id);
+        return ResponseEntity.ok(toDto(boardModel));
     }
 }
