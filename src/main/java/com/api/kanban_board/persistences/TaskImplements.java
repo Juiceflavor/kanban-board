@@ -36,6 +36,24 @@ public class TaskImplements implements TaskRepository {
     }
 
     @Override
+    public TaskModel transitionTask(Integer id) {
+        TaskModel taskModel = getTaskById(id);
+        return toModel(taskJpaRepositoryAdapter.save(toEntity(taskModel.transition())));
+    }
+
+    @Override
+    public TaskModel inactiveTask(Integer id) {
+        TaskModel taskModel = getTaskById(id);
+        return toModel(taskJpaRepositoryAdapter.save(toEntity(taskModel.inactive())));
+    }
+
+    @Override
+    public TaskModel activeTask(Integer id) {
+        TaskModel taskModel = getTaskById(id);
+        return toModel(taskJpaRepositoryAdapter.save(toEntity(taskModel.active())));
+    }
+
+    @Override
     public List<TaskModel> getAllTasks() {
         List<TaskEntity> taskEntities = taskJpaRepositoryAdapter.findAll();
         return toModelList(taskEntities);
@@ -44,6 +62,12 @@ public class TaskImplements implements TaskRepository {
     @Override
     public List<TaskModel> getAllTaskByBoardId(Integer boardId) {
         List<TaskEntity> tasksEntities = taskJpaRepositoryAdapter.findByBoardIdAndParentIdIsNull(boardId);
+        return toModelList(tasksEntities);
+    }
+
+    @Override
+    public List<TaskModel> getAllTaskByParentId(Integer parentId) {
+        List<TaskEntity> tasksEntities = taskJpaRepositoryAdapter.findByParentIdAndBoardIdIsNull(parentId);
         return toModelList(tasksEntities);
     }
 }

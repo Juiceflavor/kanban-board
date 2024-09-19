@@ -67,7 +67,9 @@ public class TaskModel {
     }
 
     private void validateBoard_id(Integer boardId) {
-        IntegerUtils.validateNullAndNegative("boardId", boardId);
+        if(boardId != null && boardId <= 0) {
+            throw new WarningException("Parent id must be greater than zero");
+        }
     }
 
     private void validateName(String name) {
