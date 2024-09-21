@@ -12,29 +12,29 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class GetAllTasksByBoardIdServiceTest {
+public class GetAllTasksByParentIdTest {
 
     private TaskRepository taskRepositoryMock;
-    private GetAllTasksByBoardIdService getAllTasksByBoardIdService;
+    private GetAllTaskByParentIdService getAllTaskByParentIdService;
     private List<TaskModel> mockTaskList;
     private Integer boardId;
 
     @BeforeEach
     void setUp() {
         taskRepositoryMock = Mockito.mock(TaskRepository.class);
-        getAllTasksByBoardIdService = new GetAllTasksByBoardIdService(taskRepositoryMock);
+        getAllTaskByParentIdService = new GetAllTaskByParentIdService(taskRepositoryMock);
 
         mockTaskList = List.of(MockUtils.makeTaskModelMock());
         boardId = mockTaskList.get(0).getBoardId();
     }
 
     @Test
-    void shouldReturnAllTasksWhenValidBoardIdIsProvided() {
+    void shouldReturnAllTasksWhenValidParentIdIsProvided() {
         // Arrange
-        Mockito.when(taskRepositoryMock.getAllTaskByBoardId(boardId)).thenReturn(mockTaskList);
+        Mockito.when(taskRepositoryMock.getAllTaskByParentId(boardId)).thenReturn(mockTaskList);
 
         // Act
-        List<TaskModel> response = getAllTasksByBoardIdService.execute(boardId);
+        List<TaskModel> response = getAllTaskByParentIdService.execute(boardId);
 
         // Assert
         assertEquals(1, response.size());

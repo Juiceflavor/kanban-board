@@ -8,15 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class InactiveBoardServiceTest {
 
     private BoardRepository boardRepositoryMock;
     private InactiveBoardService inactiveBoardService;
     private BoardModel mockBoardModel;
-    private BoardModel mockInactiveBoardModel;
 
     @BeforeEach
     void setUp() {
@@ -24,21 +23,20 @@ class InactiveBoardServiceTest {
         inactiveBoardService = new InactiveBoardService(boardRepositoryMock);
 
         mockBoardModel = MockUtils.makeBoardModelMock();
-        mockInactiveBoardModel = mockBoardModel.inactive();
     }
 
     @Test
     void shouldInactivateBoardWhenBoardIsActive() {
         // Arrange
-        when(boardRepositoryMock.inactive(mockBoardModel.getId())).thenReturn(mockInactiveBoardModel);
+        Mockito.when(boardRepositoryMock.inactive(mockBoardModel.getId())).thenReturn(mockBoardModel.inactive());
 
         // Act
         BoardModel response = inactiveBoardService.execute(mockBoardModel.getId());
 
         // Assert
         assertNotNull(response);
-        assertEquals(mockInactiveBoardModel.getId(), response.getId());
-        assertEquals(mockInactiveBoardModel.getStatus().getCode(), response.getStatus().getCode());
+        assertEquals(mockBoardModel.getId(), response.getId());
+        assertEquals(mockBoardModel.getStatus().getCode(), response.getStatus().getCode());
     }
 
     @AfterEach

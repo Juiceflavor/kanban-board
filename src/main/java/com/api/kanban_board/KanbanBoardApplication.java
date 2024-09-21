@@ -1,6 +1,5 @@
 package com.api.kanban_board;
 
-import com.api.kanban_board.models.CustomExcpetion;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class KanbanBoardApplication {
 
-    public static void main(String[] args) throws CustomExcpetion {
+    public static void main(String[] args) {
         SpringApplication.run(KanbanBoardApplication.class, args);
     }
 

@@ -3,7 +3,6 @@ package com.api.kanban_board.services.boards;
 import com.api.kanban_board.MockUtils;
 import com.api.kanban_board.exceptions.WarningException;
 import com.api.kanban_board.models.BoardModel;
-import com.api.kanban_board.models.CustomExcpetion;
 import com.api.kanban_board.repositories.BoardRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

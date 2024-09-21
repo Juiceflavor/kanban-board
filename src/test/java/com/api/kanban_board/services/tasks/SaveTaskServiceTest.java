@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SaveTaskServiceTest {
@@ -41,6 +43,19 @@ class SaveTaskServiceTest {
         assertEquals(mockTaskModel.getStatus(), response.getStatus());
         assertEquals(mockTaskModel.getBoardId(), response.getBoardId());
         assertEquals(mockTaskModel.getParentId(), response.getParentId());
+    }
+
+    @Test
+    void shouldShowThrowExceptionWhenTheNameExists() {
+        // Arrange
+        Mockito.when(taskRepositoryMock.getTasksByName(mockTaskModel.getName()))
+                .thenReturn(List.of(mockTaskModel));
+
+        // Act
+        assertThrows(Exception.class, () -> saveTaskService.execute(mockTaskModel));
+
+        // Assert
+        Mockito.verify(taskRepositoryMock, Mockito.never()).save(Mockito.any());
     }
 
     @AfterEach
