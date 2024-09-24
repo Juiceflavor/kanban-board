@@ -3,6 +3,7 @@ package com.api.kanban_board.controllers;
 import com.api.kanban_board.dtos.TaskDto;
 import com.api.kanban_board.models.TaskModel;
 import com.api.kanban_board.services.tasks.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,7 @@ public class TaskController {
     @PostMapping
     public ResponseEntity<TaskDto> saveTask(@RequestBody TaskDto taskDto) {
         TaskModel savedTaskmodel = saveTaskService.execute(toModel(taskDto));
-        return ResponseEntity.ok(toDto(savedTaskmodel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(toDto(savedTaskmodel));
     }
 
     @GetMapping
