@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface TaskJpaRepositoryAdapter extends JpaRepository<TaskEntity, Long> {
+public interface TaskJpaRepositoryAdapter extends JpaRepository<TaskEntity, Integer> {
 
-    @Query(value = "SELECT * FROM TASKS t WHERE t.BOARD_ID  = ?1 AND t.PARENT_ID IS NULL", nativeQuery = true)
-    public List<TaskEntity> getTasksByBoardId(Long board_id);
+    public List<TaskEntity> findByBoardIdAndParentIdIsNull(Integer boardId);
+
+    public List<TaskEntity> findByName(String name);
+
 }

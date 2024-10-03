@@ -4,7 +4,6 @@ import com.api.kanban_board.entities.TaskEntity;
 import com.api.kanban_board.models.TaskModel;
 import com.api.kanban_board.persistences.adapters.TaskJpaRepositoryAdapter;
 import com.api.kanban_board.repositories.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,8 +13,11 @@ import static com.api.kanban_board.mappers.TaskMapper.*;
 @Component
 public class TaskImplements implements TaskRepository {
 
-    @Autowired
-    private TaskJpaRepositoryAdapter taskJpaRepositoryAdapter;
+    private final TaskJpaRepositoryAdapter taskJpaRepositoryAdapter;
+
+    public TaskImplements(TaskJpaRepositoryAdapter taskJpaRepositoryAdapter) {
+        this.taskJpaRepositoryAdapter = taskJpaRepositoryAdapter;
+    }
 
     @Override
     public TaskModel save(TaskModel taskModel) {
@@ -23,8 +25,14 @@ public class TaskImplements implements TaskRepository {
     }
 
     @Override
-    public TaskModel getTaskById(Long id) {
+    public TaskModel getTaskById(Integer id) {
         return toModel(taskJpaRepositoryAdapter.findById(id).get());
+    }
+
+    @Override
+    public List<TaskModel> getTasksByName(String name) {
+        List<TaskEntity> taskEntities = taskJpaRepositoryAdapter.findByName(name);
+        return toModelList(taskEntities);
     }
 
     @Override
@@ -34,8 +42,8 @@ public class TaskImplements implements TaskRepository {
     }
 
     @Override
-    public List<TaskModel> getAllTaskByBoardId(Long board_id) {
-        List<TaskEntity> tasksEntities = taskJpaRepositoryAdapter.getTasksByBoardId(board_id);
+    public List<TaskModel> getAllTaskByBoardId(Integer boardId) {
+        List<TaskEntity> tasksEntities = taskJpaRepositoryAdapter.findByBoardIdAndParentIdIsNull(boardId);
         return toModelList(tasksEntities);
     }
 }

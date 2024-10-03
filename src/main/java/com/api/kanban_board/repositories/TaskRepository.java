@@ -9,9 +9,11 @@ public interface TaskRepository {
 
     TaskModel save(TaskModel taskModel);
 
-    List<TaskModel> getAllTaskByBoardId(Long board_id);
+    List<TaskModel> getAllTaskByBoardId(Integer boardId);
 
     List<TaskModel> getAllTasks();
 
-    TaskModel getTaskById(Long id);
+    TaskModel getTaskById(Integer id);
+
+    List<TaskModel> getTasksByName(String name);
 }

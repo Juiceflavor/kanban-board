@@ -2,11 +2,10 @@ package com.api.kanban_board.controllers;
 
 import com.api.kanban_board.dtos.TaskDto;
 import com.api.kanban_board.models.TaskModel;
-import com.api.kanban_board.services.Tasks.GetAllTasksByBoardIdService;
-import com.api.kanban_board.services.Tasks.GetAllTasksService;
-import com.api.kanban_board.services.Tasks.GetTaskByIdService;
-import com.api.kanban_board.services.Tasks.SaveTaskService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.api.kanban_board.services.tasks.GetAllTasksByBoardIdService;
+import com.api.kanban_board.services.tasks.GetAllTasksService;
+import com.api.kanban_board.services.tasks.GetTaskByIdService;
+import com.api.kanban_board.services.tasks.SaveTaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +18,23 @@ import static com.api.kanban_board.mappers.TaskMapper.*;
 @RequestMapping("api/tasks")
 public class TaskController {
 
-    @Autowired
-    private SaveTaskService saveTaskService;
+    private final SaveTaskService saveTaskService;
 
+    private final GetAllTasksService getAllTasksService;
 
-    @Autowired
-    private GetAllTasksService getAllTasksService;
+    private final GetTaskByIdService getTaskByIdService;
 
-    @Autowired
-    private GetTaskByIdService getTaskByIdService;
+    private final GetAllTasksByBoardIdService getAllTasksByBoardIdService;
 
-    @Autowired
-    private GetAllTasksByBoardIdService getAllTasksByBoardIdService;
+    public TaskController(SaveTaskService saveTaskService,
+                          GetAllTasksService getAllTasksService,
+                          GetTaskByIdService getTaskByIdService,
+                          GetAllTasksByBoardIdService getAllTasksByBoardIdService){
+        this.saveTaskService = saveTaskService;
+        this.getAllTasksService = getAllTasksService;
+        this.getTaskByIdService = getTaskByIdService;
+        this.getAllTasksByBoardIdService = getAllTasksByBoardIdService;
+    }
 
     @PostMapping
     public ResponseEntity<?> saveTask(@RequestBody TaskDto taskDto) {
@@ -44,14 +48,14 @@ public class TaskController {
         return new ResponseEntity<>(toDtoList(tasks), HttpStatus.OK);
     }
     @GetMapping("{id}")
-    public ResponseEntity<?> getTaskById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getTaskById(@PathVariable("id") Integer id) {
         TaskModel taskModel = getTaskByIdService.execute(id);
         return new ResponseEntity<>(toDto(taskModel), HttpStatus.OK);
     }
 
-    @GetMapping("board_id/{board_id}")
-    public ResponseEntity<List<TaskDto>> getAllTasksByBoardId(@PathVariable("board_id") Long board_id) {
-        List<TaskModel> tasks = getAllTasksByBoardIdService.execute(board_id);
+    @GetMapping("boards/{boardId}")
+    public ResponseEntity<List<TaskDto>> getAllTasksByBoardId(@PathVariable("boardId") Integer boardId) {
+        List<TaskModel> tasks = getAllTasksByBoardIdService.execute(boardId);
         return new ResponseEntity<>(toDtoList(tasks), HttpStatus.OK);
     }
 }

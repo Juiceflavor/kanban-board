@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 public class BoardDto {
-    private Long id;
+    private Integer id;
     private String title;
     private String description;
     private String statusCode;

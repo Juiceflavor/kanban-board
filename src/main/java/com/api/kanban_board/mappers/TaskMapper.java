@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public class TaskMapper {
 
     public TaskMapper() {
@@ -19,8 +18,8 @@ public class TaskMapper {
             return null;
         }
 
-        return TaskModel.create(taskDto.getName(), taskDto.getDescription(), taskDto.getParent_id(),
-                taskDto.getBoard_id());
+        return TaskModel.create(taskDto.getName(), taskDto.getDescription(), taskDto.getParentId(),
+                taskDto.getBoardId());
     }
 
     public static TaskModel toModel(TaskEntity taskEntity) {
@@ -29,7 +28,7 @@ public class TaskMapper {
         }
 
         return TaskModel.fromData(taskEntity.getId(), taskEntity.getName(), taskEntity.getStatus(),
-                taskEntity.getDescription(), taskEntity.getParent_id(), taskEntity.getBoard_id());
+                taskEntity.getDescription(), taskEntity.getParentId(), taskEntity.getBoardId());
     }
 
     public static List<TaskModel> toModelList(List<TaskEntity> taskEntities) {
@@ -50,8 +49,8 @@ public class TaskMapper {
                 .name(taskModel.getName())
                 .description(taskModel.getDescription())
                 .status(taskModel.getStatus().getCode())
-                .parent_id(taskModel.getParent_id())
-                .board_id(taskModel.getBoard_id()).build();
+                .parentId(taskModel.getParentId())
+                .boardId(taskModel.getBoardId()).build();
     }
 
     public static TaskDto toDto(TaskModel taskModel) {
@@ -64,8 +63,8 @@ public class TaskMapper {
                 .name(taskModel.getName())
                 .description(taskModel.getDescription())
                 .statusCode(taskModel.getStatus().getCode())
-                .parent_id(taskModel.getParent_id())
-                .board_id(taskModel.getBoard_id()).build();
+                .parentId(taskModel.getParentId())
+                .boardId(taskModel.getBoardId()).build();
     }
 
     public static List<TaskDto> toDtoList(List<TaskModel> taskModels) {

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
 public final class BoardMapper {
 
     private BoardMapper(){
@@ -19,9 +18,7 @@ public final class BoardMapper {
             return null;
         }
 
-        BoardModel boardModel = BoardModel.create(boardDto.getTitle(), boardDto.getDescription());
-
-        return boardModel;
+        return BoardModel.create(boardDto.getTitle(), boardDto.getDescription());
     }
 
     public static BoardModel toModel(BoardEntity boardEntity){
@@ -29,16 +26,15 @@ public final class BoardMapper {
             return null;
         }
 
-        BoardModel boardModel = BoardModel.fromData(boardEntity.getId(), boardEntity.getTitle(), boardEntity.getDescription(), boardEntity.getStatus());
-
-        return boardModel;
+        return BoardModel.fromData(boardEntity.getId(), boardEntity.getTitle(), boardEntity.getDescription(),
+                boardEntity.getStatus());
     }
 
     public static List<BoardModel> toModelList(List<BoardEntity> boardEntitiesList) {
         if (boardEntitiesList == null) {
             return null;
         }
-        return boardEntitiesList.stream().map(entity -> toModel(entity)).collect(Collectors.toList());
+        return boardEntitiesList.stream().map(BoardMapper::toModel).collect(Collectors.toList());
     }
 
     public static BoardEntity toEntity(BoardModel boardModel){
@@ -46,13 +42,11 @@ public final class BoardMapper {
             return null;
         }
 
-        BoardEntity boardEntity = BoardEntity.builder()
+        return BoardEntity.builder()
                 .id(boardModel.getId())
                 .title(boardModel.getTitle())
                 .description(boardModel.getDescription())
                 .status(boardModel.getStatus().getCode()).build();
-
-        return boardEntity;
     }
 
     public static BoardDto toDto(BoardModel boardModel){
@@ -71,6 +65,6 @@ public final class BoardMapper {
         if (boardModelList == null) {
             return null;
         }
-        return boardModelList.stream().map(entity -> toDto(entity)).collect(Collectors.toList());
+        return boardModelList.stream().map(BoardMapper::toDto).collect(Collectors.toList());
     }
 }
