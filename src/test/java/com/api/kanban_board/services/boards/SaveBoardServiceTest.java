@@ -51,10 +51,24 @@ class SaveBoardServiceTest {
                 .thenReturn(List.of(mockBoardModel));
 
         // Act
-        assertThrows(WarningException.class, () -> saveBoardService.execute(mockBoardModel));
+        WarningException exception = assertThrows(WarningException.class, () ->
+                saveBoardService.execute(mockBoardModel));
+        assertEquals("The title of the board already exists", exception.getMessage());
 
         // Assert
         Mockito.verify(boardRepositoryMock, Mockito.never()).save(Mockito.any());
+    }
+
+    @Test
+    void shouldShowThrowExceptionWhenStatusDontExists() {
+        // Act % Assert
+        WarningException exception = assertThrows(WarningException.class, () ->
+                BoardModel.fromData(mockBoardModel.getId(),
+                        mockBoardModel.getTitle(),
+                        mockBoardModel.getDescription(),
+                        "0"));
+        assertEquals("The code 0 is not a valid status model",
+                exception.getMessage());
     }
 
     @AfterEach

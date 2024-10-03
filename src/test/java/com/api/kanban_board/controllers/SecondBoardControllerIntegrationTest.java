@@ -2,6 +2,8 @@ package com.api.kanban_board.controllers;
 
 import com.api.kanban_board.MockUtils;
 import com.api.kanban_board.models.BoardModel;
+import com.api.kanban_board.models.TaskModel;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,14 +25,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class BoardControllerIntegrationTest {
+class SecondBoardControllerIntegrationTest {
 
     private final MockMvc mockMvc;
     private final ObjectMapper objectMapper;
     private BoardModel boardModel;
 
     @Autowired
-    BoardControllerIntegrationTest(MockMvc mockMvc, ObjectMapper objectMapper) {
+    SecondBoardControllerIntegrationTest(MockMvc mockMvc, ObjectMapper objectMapper) {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
     }
@@ -82,8 +85,17 @@ class BoardControllerIntegrationTest {
     @Test
     @Order(4)
     void shouldGetAllTaskByBoardId () throws Exception {
+        // Arrange
+        TaskModel newTask = TaskModel.create("Tarea 1", "Tarea 1",
+                boardModel.getId(), null);
+        ResultActions resultActions = mockMvc.perform(post("/api/tasks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(newTask)));
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(resultActions.andReturn().getResponse().getContentAsString());
+
         // Act & Assert
-        mockMvc.perform(get("/api/boards/{id}/tasks", boardModel.getId()))
+        mockMvc.perform(get("/api/boards/{id}/tasks", jsonNode.get("boardId").asInt()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray());
     }

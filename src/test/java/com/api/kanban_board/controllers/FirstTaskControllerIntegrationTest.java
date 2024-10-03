@@ -22,13 +22,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TaskControllerIntegrationTest {
+public class FirstTaskControllerIntegrationTest {
 
     private final MockMvc mockMvc;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    TaskControllerIntegrationTest(MockMvc mockMvc, ObjectMapper objectMapper) {
+    FirstTaskControllerIntegrationTest(MockMvc mockMvc, ObjectMapper objectMapper) {
         this.mockMvc = mockMvc;
         this.objectMapper = objectMapper;
     }
