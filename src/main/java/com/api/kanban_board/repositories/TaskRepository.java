@@ -11,9 +11,17 @@ public interface TaskRepository {
 
     List<TaskModel> getAllTaskByBoardId(Integer boardId);
 
+    List<TaskModel> getAllTaskByParentId(Integer parentId);
+
     List<TaskModel> getAllTasks();
 
     TaskModel getTaskById(Integer id);
 
     List<TaskModel> getTasksByName(String name);
+
+    TaskModel transitionTask(Integer id);
+
+    TaskModel inactiveTask(Integer id);
+
+    TaskModel activeTask(Integer id);
 }

@@ -3,7 +3,6 @@ package com.api.kanban_board.services.boards;
 import com.api.kanban_board.MockUtils;
 import com.api.kanban_board.exceptions.WarningException;
 import com.api.kanban_board.models.BoardModel;
-import com.api.kanban_board.models.CustomExcpetion;
 import com.api.kanban_board.repositories.BoardRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,10 +51,24 @@ class SaveBoardServiceTest {
                 .thenReturn(List.of(mockBoardModel));
 
         // Act
-        assertThrows(WarningException.class, () -> saveBoardService.execute(mockBoardModel));
+        WarningException exception = assertThrows(WarningException.class, () ->
+                saveBoardService.execute(mockBoardModel));
+        assertEquals("The title of the board already exists", exception.getMessage());
 
         // Assert
         Mockito.verify(boardRepositoryMock, Mockito.never()).save(Mockito.any());
+    }
+
+    @Test
+    void shouldShowThrowExceptionWhenStatusDontExists() {
+        // Act % Assert
+        WarningException exception = assertThrows(WarningException.class, () ->
+                BoardModel.fromData(mockBoardModel.getId(),
+                        mockBoardModel.getTitle(),
+                        mockBoardModel.getDescription(),
+                        "0"));
+        assertEquals("The code 0 is not a valid status model",
+                exception.getMessage());
     }
 
     @AfterEach
