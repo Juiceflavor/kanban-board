@@ -18,10 +18,12 @@ public class TaskModel {
 
     private TaskModel(Integer id, String name, String statusCode, String description, Integer parentId,
                       Integer boardId) {
-        validateBoard_id(boardId);
-        validateDescription(description);
-        validateStatus(statusCode);
         validateId(id);
+        validateName(name);
+        validateStatus(statusCode);
+        validateDescription(description);
+        validateParentId(parentId);
+        validateBoardId(boardId);
 
         this.id = id;
         this.name = name;
@@ -35,8 +37,8 @@ public class TaskModel {
         validateName(name);
         validateStatus(statusCode);
         validateDescription(description);
-        validateParent_id(parentId);
-        validateBoard_id(boardId);
+        validateParentId(parentId);
+        validateBoardId(boardId);
 
         this.name = name;
         this.status = StatusModel.of(statusCode);
@@ -66,15 +68,17 @@ public class TaskModel {
         StringUtils.validateNullAndEmpty("description", description);
     }
 
-    private void validateBoard_id(Integer boardId) {
-        IntegerUtils.validateNullAndNegative("boardId", boardId);
+    private void validateBoardId(Integer boardId) {
+        if(boardId != null && boardId <= 0) {
+            throw new WarningException("Parent id must be greater than zero");
+        }
     }
 
     private void validateName(String name) {
         StringUtils.validateNullAndEmpty("name", name);
     }
 
-    private void validateParent_id(Integer parentId) {
+    private void validateParentId(Integer parentId) {
         if(parentId != null && parentId <= 0) {
             throw new WarningException("Parent id must be greater than zero");
         }
